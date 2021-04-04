@@ -9,7 +9,7 @@ export function Router() {
 
      if( !hash || hash === "#/" ) {
           ajax({
-               url: api.POPULAR,
+               url: api.TRENDING,
                cbSuccess: (movies) => {
                     console.log("Exito", movies);
                },

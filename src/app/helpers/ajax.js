@@ -10,8 +10,6 @@ export function ajax(props) {
           }),
           method: 'GET',
      }
-     
-
 
      fetch(url, options)
           .then( (res) => (res.ok ? res.json() : Promise.reject(res) ) )
