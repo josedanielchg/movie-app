@@ -3,7 +3,7 @@ const NAME = "api.themoviedb",
      SITE = `${DOMAIN}/3`,
      MOVIE = `${SITE}/movie`,
      SEARCH = `${SITE}/search/movie`,
-     GENRE = `${SITE}/genre`,
+     GENRES = `${SITE}/genre/movie/list`,
      DISCOVER = `${SITE}/discover/movie`,
      POPULAR = `${DISCOVER}?sort_by=popularity.desc`,
      TRENDING = `${SITE}/trending/movie/day`;
@@ -15,7 +15,7 @@ export default  {
      SITE,
      MOVIE,
      SEARCH,
-     GENRE,
+     GENRES,
      DISCOVER,
      POPULAR,
      TRENDING
