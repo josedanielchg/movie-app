@@ -52,7 +52,6 @@ export async function Router() {
                               slidesData: popularActionMovies,
                          });
 
-
                          $fragment.appendChild( $trendingSection );
                          $fragment.appendChild( $popularSection );
                          $fragment.appendChild( $popularCategorySection );
@@ -60,8 +59,27 @@ export async function Router() {
                     $main.appendChild($fragment);
 
                     let swiper = new Swiper(".swiper-container", {
-                         slidesPerView: 6,
+                         slidesPerView: 1,
                          spaceBetween: 7,
+                         breakpoints: {
+                              320: {
+                                   slidesPerView: 2,
+                                   spaceBetween: 7
+                              },
+                              480: {
+                                   slidesPerView: 3,
+                                   spaceBetween: 7
+                              },
+                              // when window width is >= 640px
+                              640: {
+                                   slidesPerView: 4,
+                                   spaceBetween: 7
+                              },
+                              1024: {
+                                   slidesPerView: 5,
+                                   spaceBetween: 7,
+                              }
+                         },
                          pagination: {
                               el: '.swiper-pagination',
                               clickable: true,

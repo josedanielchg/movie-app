@@ -1,8 +1,15 @@
 html {
   font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
 }
 
 body {
   background-color: #eee;
   letter-spacing: 0.4px;
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-left: 6.25rem;
+  }
 }
