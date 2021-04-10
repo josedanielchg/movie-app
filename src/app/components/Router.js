@@ -1,29 +1,80 @@
-import { ajax } from "../helpers/ajax.js"
-import api from "../helpers/TMDb-api.js"
+//vendor
+import Swiper, { Navigation, Pagination } from 'swiper/core';
+Swiper.use([Navigation, Pagination]);
 
-export function Router() {
+//helpers
+import { ajax } from "../helpers/ajax.js";
+import api from "../helpers/TMDb-api.js";
+
+//components
+import { MoviePosterCard } from "./MoviePosterCard.js";
+import { SwiperEstructure } from "./SwiperEstructure.js";
+import { SwiperConfiguration } from "../helpers/SwiperConfiguration.js";
+import { SliderSection } from "./SliderSection.js"
+
+export async function Router() {
      const d = document,
           w = window,
-          $main = d.getElementById("main");
+          $root = document.getElementById("root");
+
+     const $main = d.getElementById("main");
 
      let { hash } = location;
 
-     if( !hash || hash === "#/" ) {
-          ajax({
+     if (!hash || hash === "#/") {
+          await ajax({
                url: [
+                    api.TRENDING,
                     api.POPULAR,
                     api.GENRES,
                     `${api.POPULAR}&with_genres=28`,
-                    api.TRENDING,
                ],
                cbSuccess: (data) => {
-                    const trending = data[0],
-                         genres = data[1];
+                    const trendingMovies = data[0].results,
+                         popularMovies = data[1].results,
+                         popularActionMovies = data[3].results,
+                         $fragment = d.createDocumentFragment(),
+                         $trendingSection = SliderSection({
+                              title: "Trending today",
+                              SlidesComponent: MoviePosterCard,
+                              slidesData: trendingMovies,
+                              linkExploreAll: "#/trending",
+                         }),
+                         $popularSection = SliderSection({
+                              title: "Popular Movies",
+                              SlidesComponent: MoviePosterCard,
+                              slidesData: popularMovies,
+                              linkExploreAll:  "#/popular",
+                         }),
+                         $popularCategorySection = SliderSection({
+                              title: "Browse by category",
+                              SlidesComponent: MoviePosterCard,
+                              slidesData: popularActionMovies,
+                         });
 
-                    // console.log("Movies", trending);
-                    // console.log("Genres", genres);
-                    console.log(data);
-               },
+
+                         $fragment.appendChild( $trendingSection );
+                         $fragment.appendChild( $popularSection );
+                         $fragment.appendChild( $popularCategorySection );
+
+                    $main.appendChild($fragment);
+
+                    let swiper = new Swiper(".swiper-container", {
+                         slidesPerView: 6,
+                         spaceBetween: 7,
+                         pagination: {
+                              el: '.swiper-pagination',
+                              clickable: true,
+                         },
+                         navigation: {
+                              nextEl: '.swiper-button-next',
+                              prevEl: '.swiper-button-prev',
+                         },
+                    });
+
+                    SwiperConfiguration();
+               }
           });
      }
+
 }

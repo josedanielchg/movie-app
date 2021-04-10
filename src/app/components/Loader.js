@@ -6,7 +6,7 @@ export function Loader() {
      $loader.classList.add("loader", "sk-cube-grid");
 
      $styles.insertAdjacentHTML('beforeend', `
-          .loader.none {
+          .loader {
                display: none;
           }
 

@@ -42,7 +42,7 @@ module.exports = {
                },
                {
                     test: /\.(jpe?g|png|gif|svg|webp)$/i,
-                    use: ["file-loader?name=assets/[name].[ext]", "image-webpack-loader"],
+                    use: ["file-loader?name=assets/resources/[name].[ext]", "image-webpack-loader"],
                }
           ],
      },
@@ -51,6 +51,8 @@ module.exports = {
                template: "./src/index.html",
                filename: "./index.html",
           }), 
-          new MiniCssExtractPlugin(),
+          new MiniCssExtractPlugin({
+              insert: 'title',
+          }),
      ],
 }

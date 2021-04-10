@@ -1,16 +1,32 @@
 export function Footer() {
 
      const $footer = document.createElement("footer"),
-          URL_TMDb_LOGO = "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
-          
+          $styles = document.getElementById("dynamic-styles");
+
      $footer.classList.add("footer");
 
-     $footer.innerHTML = `
-          <img src="${URL_TMDb_LOGO}" alt="TMDb logo" class="TMDb-logo" style="width: 150px">
-          <p class="attribution">
+     $footer.insertAdjacentHTML("beforeend", `
+          <p>
+               © 2021 José Chacón
+          </p>
+          <p>
                This product uses the TMDb API but is not endorsed or certified by TMDb
           </p>
-     `;
+     `);
+
+     $styles.insertAdjacentHTML('beforeend', `
+          .footer {
+               background-color: #141414;
+               padding: 2.45rem;
+               color: #80868b;
+               font-size: 0.875rem;
+          }
+
+          .footer p {
+               margin: 3px 0;
+               line-height: 1.6;
+          }
+     `);
 
      return $footer
 }

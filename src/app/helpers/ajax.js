@@ -1,6 +1,6 @@
 import TMDB_KEYS from "./TMDb-keys.js"
 
-export function ajax(props) {
+export async function ajax(props) {
 
      let { url } = props,
           options = {
@@ -12,17 +12,17 @@ export function ajax(props) {
           }
 
      if (Array.isArray(url) )
-          multipleRequest(props, options);
+          await multipleRequest(props, options);
      else
-          oneRequest(props, options);
+          await oneRequest(props, options);
 }
 
 // One Request
-function oneRequest(props, options) {
+async function oneRequest(props, options) {
 
      let { url, cbSuccess } = props;
 
-     fetch(url, options)
+     await fetch(url, options)
           .then( (res) => (res.ok ? res.json() : Promise.reject(res) ) )
           .then( (json) => cbSuccess(json) )
           .catch( (err) => {
@@ -32,12 +32,12 @@ function oneRequest(props, options) {
 }
 
 // Two or more Request
-function multipleRequest(props, options) {
+async function multipleRequest(props, options) {
 
      let { url, cbSuccess } = props,
           urls = url.map( url => fetch(url, options));
 
-     Promise.all(urls)
+     await Promise.all(urls)
           .then( (responses) =>Promise.all(responses.map(res => res.json()) ) )
           .then( (data) => cbSuccess(data) )
           .catch( (err) => {
