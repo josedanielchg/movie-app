@@ -7,10 +7,15 @@ export function  SwiperConfiguration() {
           $swiperButton.forEach(el => el.style.height = cardImageHeight + "px");
      },
      fitExploreAllCard = () => {
-          const $exploreAllCard = document.querySelector(".swiper-slide.explore-all"), 
-               cardImageHeight = document.querySelector(".card img").offsetHeight;
+          const $exploreAllCards = document.querySelectorAll(".swiper-slide.explore-all"), 
+               cardImageHeight = document.querySelector(".card img").offsetHeight,
+               cardImageWidth = document.querySelector(".card img").offsetWidth;
           
-          $exploreAllCard.style.height = cardImageHeight + "px";
+          $exploreAllCards.forEach(el => {
+               el.querySelector('a').style.height = cardImageHeight + "px";
+               el.querySelector('a').style.width = cardImageWidth + "px";
+               el.style.height = cardImageHeight + "px";
+          });
      },
      imageIsLoad = () => {
           const $image = document.querySelector(".card img");

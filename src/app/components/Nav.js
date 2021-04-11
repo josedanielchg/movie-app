@@ -34,6 +34,7 @@ export function Nav() {
                z-index: 5;
                height: 2.8rem;
                background-color: #000;
+               border-right: 1px solid #202124;
           }
 
           .nav ul {
@@ -67,7 +68,6 @@ export function Nav() {
                     right: auto;
                     width: 6.25rem;
                     height: 100%;
-                    border-right: gray;
                }
 
                .nav ul {

@@ -7,6 +7,7 @@ import { ajax } from "../helpers/ajax.js";
 import api from "../helpers/TMDb-api.js";
 
 //components
+import { Header } from "./Header";
 import { MoviePosterCard } from "./MoviePosterCard.js";
 import { SwiperEstructure } from "./SwiperEstructure.js";
 import { SwiperConfiguration } from "../helpers/SwiperConfiguration.js";
@@ -52,6 +53,8 @@ export async function Router() {
                               slidesData: popularActionMovies,
                          });
 
+                         console.log(popularMovies);
+                         $main.appendChild( Header(popularMovies[0]) )
                          $fragment.appendChild( $trendingSection );
                          $fragment.appendChild( $popularSection );
                          $fragment.appendChild( $popularCategorySection );

@@ -5,8 +5,6 @@ export function MoviePosterCard(data) {
           $styles = document.getElementById("dynamic-styles"),
           {props, lastCard} = data;
 
-     console.log(data)
-
      $card.classList.add("card", "swiper-slide");
 
      if(props) {
@@ -14,7 +12,7 @@ export function MoviePosterCard(data) {
 
           $card.insertAdjacentHTML("beforeend", `
                <a href="#/${props.slug}" class="card__link" title="${props.title}">
-                    <img src="https://image.tmdb.org/t/p/w342${props.poster_path}" alt="" class="card__cover">
+                    <img src="https://image.tmdb.org/t/p/w342${props.poster_path}" alt="${props.title}" class="card__cover">
                     <h3 class="card__name">${props.title}</h3>
                     <div class="card__rating">
                          <div class="card__stars">
@@ -39,7 +37,6 @@ export function MoviePosterCard(data) {
                </a>
           `);
      }
-          
 
      $styles.insertAdjacentHTML('beforeend', `
           .card__link {
@@ -89,6 +86,12 @@ export function MoviePosterCard(data) {
                font-size: 1rem;
                text-align: center;
                cursor: pointer;
+          }
+
+          .card__explore-all {
+               display: flex;
+               align-items: center;
+               justify-content: center;
           }
      `);
 
