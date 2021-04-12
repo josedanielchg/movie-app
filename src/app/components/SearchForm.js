@@ -45,6 +45,7 @@ export function SearchForm() {
                background: none;
                border: 0;
                outline: 0;
+               letter-spacing: 0.5px;
           }
 
           .search-form__field button {
@@ -83,6 +84,7 @@ export function SearchForm() {
                const $btnSearch = d.getElementById("search-btn");
                if( e.target === $btnSearch || $btnSearch.contains( e.target ) ) 
                     $formContainer.classList.add("active");
+                    d.getElementById("search").focus();
           }
      });
 
