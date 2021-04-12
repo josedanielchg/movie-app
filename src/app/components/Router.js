@@ -9,9 +9,9 @@ import api from "../helpers/TMDb-api.js";
 //components
 import { Header } from "./Header";
 import { MoviePosterCard } from "./MoviePosterCard.js";
-import { SwiperEstructure } from "./SwiperEstructure.js";
 import { SwiperConfiguration } from "../helpers/SwiperConfiguration.js";
-import { SliderSection } from "./SliderSection.js"
+import { SliderSection } from "./SliderSection.js";
+import { SearchForm } from "./SearchForm.js"
 
 export async function Router() {
      const d = document,
@@ -21,6 +21,8 @@ export async function Router() {
      const $main = d.getElementById("main");
 
      let { hash } = location;
+
+     $main.appendChild( SearchForm() );
 
      if (!hash || hash === "#/") {
           await ajax({
