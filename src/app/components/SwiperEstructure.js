@@ -3,7 +3,11 @@ export function SwiperEstructure(conf) {
      const d = document,
           $swiperContainer = d.createElement("div"),
           $styles = document.getElementById("dynamic-styles"),
-          { SlidesComponent, slidesData, linkExploreAll } = conf;
+          {
+               SlidesComponent,
+               slidesData,
+               linkExploreAll,
+          } = conf;
      
      $swiperContainer.classList.add("swiper-container");
 
@@ -11,6 +15,7 @@ export function SwiperEstructure(conf) {
           <div class="swiper-wrapper"></div>
           <div class="swiper-button-prev swiper-button"></div>
           <div class="swiper-button-next swiper-button"></div>
+          <div class="backdrop"></div>
      `);
 
      $styles.insertAdjacentHTML('beforeend', `
@@ -26,7 +31,7 @@ export function SwiperEstructure(conf) {
           .swiper-slide {
                height: auto;
                display: flex;
-              justify-content: center;
+               justify-content: center;
                align-items: center;
           }
 
@@ -57,8 +62,8 @@ export function SwiperEstructure(conf) {
           .swiper-button-next::after {
                font-size: 2rem;
           }
-     `);
 
+     `);
 
      slidesData.forEach( slideProps =>
           $swiperContainer.querySelector(".swiper-wrapper").appendChild(SlidesComponent({ props: slideProps }))

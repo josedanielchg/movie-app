@@ -13,3 +13,7 @@ body {
     padding-left: 6.25rem;
   }
 }
+
+.main {
+  min-height: 100vh;
+}

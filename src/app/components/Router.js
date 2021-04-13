@@ -36,31 +36,35 @@ export async function Router() {
                     const trendingMovies = data[0].results,
                          popularMovies = data[1].results,
                          popularActionMovies = data[3].results,
-                         $fragment = d.createDocumentFragment(),
+                         genresList = data[2].genres;
+
+                    const $fragment = d.createDocumentFragment(),
                          $trendingSection = SliderSection({
                               title: "Trending today",
                               SlidesComponent: MoviePosterCard,
                               slidesData: trendingMovies,
                               linkExploreAll: "#/trending",
+                              sliderClass: 'trending'
                          }),
                          $popularSection = SliderSection({
                               title: "Popular Movies",
                               SlidesComponent: MoviePosterCard,
                               slidesData: popularMovies,
                               linkExploreAll:  "#/popular",
+                              sliderClass: 'movies'
                          }),
                          $popularCategorySection = SliderSection({
-                              title: "Browse by category",
+                              title: "Browse by category:",
                               SlidesComponent: MoviePosterCard,
                               slidesData: popularActionMovies,
+                              sliderClass: 'browse-category',
+                              changeSlidersButtonsData:  genresList
                          });
 
-                         console.log(popularMovies);
-                         $main.appendChild( Header(popularMovies[0]) )
-                         $fragment.appendChild( $trendingSection );
-                         $fragment.appendChild( $popularSection );
-                         $fragment.appendChild( $popularCategorySection );
-
+                    $fragment.appendChild( Header( popularMovies[0] ) );
+                    $fragment.appendChild( $trendingSection );
+                    $fragment.appendChild( $popularSection );
+                    $fragment.appendChild( $popularCategorySection );
                     $main.appendChild($fragment);
 
                     let swiper = new Swiper(".swiper-container", {
@@ -75,7 +79,6 @@ export async function Router() {
                                    slidesPerView: 3,
                                    spaceBetween: 7
                               },
-                              // when window width is >= 640px
                               640: {
                                    slidesPerView: 4,
                                    spaceBetween: 7

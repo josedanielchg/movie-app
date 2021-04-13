@@ -1,20 +1,35 @@
 import { SectionTitle } from "./SectionTitle.js"
 import { SwiperEstructure } from "./SwiperEstructure.js";
+import { ChangeSliderButtons } from "./ChangeSliderButtons";
 
 export function SliderSection(conf) {
 
      const d = document,
           $section = d.createElement("section"),
           $styles = document.getElementById("dynamic-styles"),
-          {title, SlidesComponent, slidesData, linkExploreAll} = conf;
+          {
+               title,
+               SlidesComponent,
+               slidesData,
+               linkExploreAll,
+               sliderClass,
+               changeSlidersButtonsData
+          } = conf;
 
-     $section.classList.add("slider-section");
+     $section.classList.add("slider-section", sliderClass);
      $section.insertAdjacentElement( "beforeend", SectionTitle(title) );
 
      if(linkExploreAll)
           $section.insertAdjacentHTML("beforeend", `
                <a href="${linkExploreAll}" class="slider-section__explore-link">Explore all</a>
           `);
+
+     if(changeSlidersButtonsData)
+          $section.insertAdjacentElement("beforeend", ChangeSliderButtons({
+               sliderClass,
+               data: changeSlidersButtonsData,
+               SlidesComponent
+          }));
 
      $section.insertAdjacentElement( "beforeend", SwiperEstructure({
           SlidesComponent,
