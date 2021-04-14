@@ -32,7 +32,7 @@ export async function Router() {
                     api.GENRES,
                     `${api.POPULAR}&with_genres=28`,
                ],
-               cbSuccess: (data) => {
+               cbSuccess: async (data) => {
                     const trendingMovies = data[0].results,
                          popularMovies = data[1].results,
                          popularActionMovies = data[3].results,
@@ -61,7 +61,7 @@ export async function Router() {
                               changeSlidersButtonsData:  genresList
                          });
 
-                    $fragment.appendChild( Header( popularMovies[0] ) );
+                    $fragment.appendChild( await Header( popularMovies[0]) );
                     $fragment.appendChild( $trendingSection );
                     $fragment.appendChild( $popularSection );
                     $fragment.appendChild( $popularCategorySection );

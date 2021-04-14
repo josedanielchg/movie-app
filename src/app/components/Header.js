@@ -1,16 +1,26 @@
-import { SearchForm } from "./SearchForm.js";
-import { number_with_commas } from "../helpers/number_with_commas.js"
-import { cut_overview } from "../helpers/cut_overview.js"
+import { ajax } from "../helpers/ajax.js";
+import api from "../helpers/TMDb-api.js";
+import { number_with_commas } from "../helpers/number_with_commas.js";
+import { cut_overview } from "../helpers/cut_overview.js";
+import { ModalVideo } from "./ModalVideo.js";
 
-export function Header(props) {
-     const $header = document.createElement("header"),
+export async function Header(props) {
+     const d = document,
+          $header = document.createElement("header"),
           $styles = document.getElementById("dynamic-styles");
+
+     let trailerKey ;
+
+     await ajax({
+          url: `${api.MOVIE}/${props.id}/videos`,
+          cbSuccess: (data) => trailerKey = data.results[0].key
+     })
 
      $header.classList.add("header");
 
      $header.insertAdjacentHTML("beforeend", `
           <div class="header__backdrop">
-               <button type="button" aria-label="Play Trailer" class="play_AfXd1">
+               <button type="button" aria-label="Play Trailer" id="watch-trailer" data-key="${trailerKey}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></circle><path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z"></path></svg>
                </button>
                <img src="https://image.tmdb.org/t/p/w1280${props.backdrop_path}" alt="">
@@ -30,11 +40,11 @@ export function Header(props) {
                     <div class="header__description">
                          <p>${cut_overview(props.overview)}</p>
                     </div>
-                    <button type="button" class="button-icon">
+                    <button type="button" class="button-icon" id="watch-trailer" data-key="${trailerKey}">
                          <span class="icon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M3 22v-20l18 10-18 10z"></path></svg>
                          </span>
-                         <span class="txt">Watch Trailer</span>
+                         <span>Watch Trailer</span>
                     </button>
                </div>
           </div>
@@ -256,6 +266,16 @@ export function Header(props) {
                }
           }
      `);
+
+     d.addEventListener("click", e => {
+
+          const $watchTrailerBtn = d.getElementById("watch-trailer"),
+               $root = d.getElementById("root");
+
+          if(!e.target.matches("#watch-trailer") && !e.target.matches("#watch-trailer *")) return false;
+
+          $root.appendChild( ModalVideo($watchTrailerBtn.dataset.key) );
+     })
 
      return $header;
 }
