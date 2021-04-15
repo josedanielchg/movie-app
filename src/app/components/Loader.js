@@ -3,12 +3,9 @@ export function Loader() {
           $styles = document.getElementById("dynamic-styles"),
           colorLoader = "#333";
 
-     $loader.classList.add("loader", "sk-cube-grid");
+     $loader.classList.add("loader-container");
 
      $styles.insertAdjacentHTML('beforeend', `
-          .loader {
-               display: none;
-          }
 
           .sk-cube-grid {
                width: 100px;
@@ -74,15 +71,17 @@ export function Loader() {
      `);
 
      $loader.innerHTML = `
-          <div class="sk-cube sk-cube1"></div>
-          <div class="sk-cube sk-cube2"></div>
-          <div class="sk-cube sk-cube3"></div>
-          <div class="sk-cube sk-cube4"></div>
-          <div class="sk-cube sk-cube5"></div>
-          <div class="sk-cube sk-cube6"></div>
-          <div class="sk-cube sk-cube7"></div>
-          <div class="sk-cube sk-cube8"></div>
-          <div class="sk-cube sk-cube9"></div>
+          <div class="loader sk-cube-grid">
+               <div class="sk-cube sk-cube1"></div>
+               <div class="sk-cube sk-cube2"></div>
+               <div class="sk-cube sk-cube3"></div>
+               <div class="sk-cube sk-cube4"></div>
+               <div class="sk-cube sk-cube5"></div>
+               <div class="sk-cube sk-cube6"></div>
+               <div class="sk-cube sk-cube7"></div>
+               <div class="sk-cube sk-cube8"></div>
+               <div class="sk-cube sk-cube9"></div>
+          </div>
      `;
 
      return $loader;

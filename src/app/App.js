@@ -10,8 +10,7 @@ export function App() {
 
      $root.innerHTML = null;
 
-     // $root.appendChild(Header());
-     // $root.appendChild(Loader());
+     $root.appendChild(Loader());
      $root.appendChild(Nav())
      $root.appendChild(Main());
      $root.appendChild(Footer());

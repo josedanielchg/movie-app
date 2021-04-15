@@ -18,13 +18,13 @@ export async function Router() {
           w = window,
           $root = document.getElementById("root");
 
-     const $main = d.getElementById("main");
-
+     const $main = d.getElementById("main"),
+          $fragment = d.createDocumentFragment();
      let { hash } = location;
 
      $main.appendChild( SearchForm() );
 
-     if (!hash || hash === "#/") {
+     if (!hash || hash === "#/")
           await ajax({
                url: [
                     api.TRENDING,
@@ -38,8 +38,8 @@ export async function Router() {
                          popularActionMovies = data[3].results,
                          genresList = data[2].genres;
 
-                    const $fragment = d.createDocumentFragment(),
-                         $trendingSection = SliderSection({
+                    
+                    const $trendingSection = SliderSection({
                               title: "Trending today",
                               SlidesComponent: MoviePosterCard,
                               slidesData: trendingMovies,
@@ -65,42 +65,42 @@ export async function Router() {
                     $fragment.appendChild( $trendingSection );
                     $fragment.appendChild( $popularSection );
                     $fragment.appendChild( $popularCategorySection );
-                    $main.appendChild($fragment);
-
-                    let swiper = new Swiper(".swiper-container", {
-                         slidesPerView: 1,
-                         spaceBetween: 7,
-                         breakpoints: {
-                              320: {
-                                   slidesPerView: 2,
-                                   spaceBetween: 7
-                              },
-                              480: {
-                                   slidesPerView: 3,
-                                   spaceBetween: 7
-                              },
-                              640: {
-                                   slidesPerView: 4,
-                                   spaceBetween: 7
-                              },
-                              1024: {
-                                   slidesPerView: 5,
-                                   spaceBetween: 7,
-                              }
-                         },
-                         pagination: {
-                              el: '.swiper-pagination',
-                              clickable: true,
-                         },
-                         navigation: {
-                              nextEl: '.swiper-button-next',
-                              prevEl: '.swiper-button-prev',
-                         },
-                    });
-
-                    SwiperConfiguration();
                }
           });
-     }
+
+     d.querySelector(".loader-container").style.display = "none";
+     $main.appendChild($fragment);
+
+     let swiper = new Swiper(".swiper-container", {
+          slidesPerView: 1,
+          spaceBetween: 7,
+          breakpoints: {
+               320: {
+                    slidesPerView: 2,
+                    spaceBetween: 7
+               },
+               480: {
+                    slidesPerView: 3,
+                    spaceBetween: 7
+               },
+               640: {
+                    slidesPerView: 4,
+                    spaceBetween: 7
+               },
+               1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 7,
+               }
+          },
+          pagination: {
+               el: '.swiper-pagination',
+               clickable: true,
+          },
+          navigation: {
+               nextEl: '.swiper-button-next',
+               prevEl: '.swiper-button-prev',
+          },
+     });
+     SwiperConfiguration();
 
 }
