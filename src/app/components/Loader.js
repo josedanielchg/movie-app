@@ -7,6 +7,13 @@ export function Loader() {
 
      $styles.insertAdjacentHTML('beforeend', `
 
+          .loader-container {
+               min-height: 100vh;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+          }
+
           .sk-cube-grid {
                width: 100px;
                height: 100px;

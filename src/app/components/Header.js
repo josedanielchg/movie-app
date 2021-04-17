@@ -1,6 +1,6 @@
 import { ajax } from "../helpers/ajax.js";
 import api from "../helpers/TMDb-api.js";
-import { number_with_commas } from "../helpers/number_with_commas.js";
+import number_with_commas from "../helpers/number_with_commas.js";
 import { cut_overview } from "../helpers/cut_overview.js";
 import { ModalVideo } from "./ModalVideo.js";
 
@@ -29,7 +29,7 @@ export async function Header(props) {
           <div class="header__data">
                <div class="header__info">
                     <h1 class="header__title">
-                         <a href="#/${props.slug}">${props.title}</a>
+                         <a href="#/${props.slug}" data-id="${props.id}" class="movie-link">${props.title}</a>
                     </h1>
                     <div class="header__rating">
                          <div class="starts">
@@ -60,7 +60,6 @@ export async function Header(props) {
                height: 21.875rem;
                color: #999;
                background-color: #000;
-               margin-bottom: 3rem;
                box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
           }
 
@@ -268,13 +267,20 @@ export async function Header(props) {
      `);
 
      d.addEventListener("click", e => {
-
           const $watchTrailerBtn = d.getElementById("watch-trailer"),
                $root = d.getElementById("root");
 
           if(!e.target.matches("#watch-trailer") && !e.target.matches("#watch-trailer *")) return false;
-
           $root.appendChild( ModalVideo($watchTrailerBtn.dataset.key) );
+     })
+
+     d.addEventListener("click", e => {
+          if(e.target.matches(".movie-link")) {
+               localStorage.setItem("TMDb_id", e.target.dataset.id);
+          }
+           if(e.target.matches(".movie-link *")) {
+               localStorage.setItem("TMDb_id", e.target.closest("a.movie-link").dataset.id);
+           }
      })
 
      return $header;

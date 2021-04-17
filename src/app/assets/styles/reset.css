@@ -125,6 +125,7 @@ html {
   box-sizing: border-box;
   font-size: 16px;
   scroll-behavior: smooth;
+  line-height: 1.6;
 }
 
 *,
@@ -139,6 +140,7 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 img {
@@ -153,7 +155,8 @@ a {
 }
 
 button {
-  border: none;
+  border: 0;
   cursor: pointer;
   background: none;
+  text-align: center;
 }

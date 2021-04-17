@@ -39,7 +39,7 @@ export function SliderSection(conf) {
 
      $styles.insertAdjacentHTML("beforeend", `
           .slider-section {
-               margin-bottom: 3rem;
+               margin-top: 3rem;
           }
 
           .slider-section__title {

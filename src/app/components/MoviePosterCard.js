@@ -1,7 +1,8 @@
 import string_to_slug from "../helpers/string_to_slug.js"
 
 export function MoviePosterCard(data) {
-     const $card = document.createElement("div"),
+     const d = document,
+          $card = document.createElement("div"),
           $styles = document.getElementById("dynamic-styles"),
           {props, lastCard} = data;
 
@@ -9,10 +10,11 @@ export function MoviePosterCard(data) {
 
      if(props) {
           props.slug = string_to_slug(props.title);
-
           $card.insertAdjacentHTML("beforeend", `
-               <a href="#/${props.slug}" class="card__link" title="${props.title}">
-                    <img src="https://image.tmdb.org/t/p/w342${props.poster_path}" alt="${props.title}" class="card__cover">
+               <a href="#/${props.slug}" class="card__link movie-link" title="${props.title}" data-id="${props.id}">
+                    <div class="card__cover">
+                         <img src="https://image.tmdb.org/t/p/w342${props.poster_path}" alt="${props.title}" class="card__cover">
+                    </div>
                     <h3 class="card__name">${props.title}</h3>
                     <div class="card__rating">
                          <div class="card__stars">
@@ -94,6 +96,16 @@ export function MoviePosterCard(data) {
                justify-content: center;
           }
      `);
+
+     d.addEventListener("click", e => {
+          if(e.target.matches(".movie-link")) {
+               localStorage.setItem("TMDb_id", e.target.dataset.id);
+          }
+
+           if(e.target.matches(".movie-link *")) {
+               localStorage.setItem("TMDb_id", e.target.closest("a.movie-link").dataset.id);
+           }
+     })
 
      return $card;
 }

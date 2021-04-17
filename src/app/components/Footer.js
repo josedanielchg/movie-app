@@ -20,6 +20,7 @@ export function Footer() {
                padding: 2.45rem;
                color: #80868b;
                font-size: 0.875rem;
+               margin-top: 3rem;
           }
 
           .footer p {
