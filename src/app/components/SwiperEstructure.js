@@ -28,13 +28,6 @@ export function SwiperEstructure(conf) {
                height: 100%;
           }
 
-          .swiper-slide {
-               height: auto;
-               display: flex;
-               justify-content: center;
-               align-items: center;
-          }
-
           .swiper-button-next {
                right: 0;
           }

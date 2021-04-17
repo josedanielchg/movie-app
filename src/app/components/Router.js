@@ -38,7 +38,6 @@ export async function Router() {
                          popularMovies = data[1].results,
                          popularActionMovies = data[3].results,
                          genresList = data[2].genres;
-
                     
                     const $trendingSection = SliderSection({
                               title: "Trending today",

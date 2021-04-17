@@ -17,15 +17,15 @@ export function  SwiperConfiguration() {
                el.style.height = cardImageHeight + "px";
           });
      },
-     imageIsLoad = () => {
-          const $image = document.querySelector(".card img");
+     imageIsLoad = (selector) => {
+          const $image = document.querySelector(`.${selector} .card img`);
 
           if( $image.complete && $image.naturalHeight !== 0 ) {
                fitSliderArrows();
                fitExploreAllCard();
           }
           else
-          setTimeout(() => imageIsLoad(), 500);
+          setTimeout(() => imageIsLoad(selector), 500);
      }
 
      window.addEventListener("resize", e => {
@@ -36,7 +36,7 @@ export function  SwiperConfiguration() {
                fitExploreAllCard();
           }, 100);
      })
-     
-     imageIsLoad();
+
+     document.querySelectorAll(".slider-section").forEach(el => imageIsLoad(el.classList[1]));
 }
 

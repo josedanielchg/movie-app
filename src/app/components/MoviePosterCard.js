@@ -6,14 +6,14 @@ export function MoviePosterCard(data) {
           $styles = document.getElementById("dynamic-styles"),
           {props, lastCard} = data;
 
-     $card.classList.add("card", "swiper-slide");
+     $card.classList.add("movie-card", "swiper-slide", "card");
 
      if(props) {
           props.slug = string_to_slug(props.title);
           $card.insertAdjacentHTML("beforeend", `
                <a href="#/${props.slug}" class="card__link movie-link" title="${props.title}" data-id="${props.id}">
                     <div class="card__cover">
-                         <img src="https://image.tmdb.org/t/p/w342${props.poster_path}" alt="${props.title}" class="card__cover">
+                         <img src="https://image.tmdb.org/t/p/w342${props.poster_path}" alt="${props.title}" >
                     </div>
                     <h3 class="card__name">${props.title}</h3>
                     <div class="card__rating">
@@ -41,15 +41,43 @@ export function MoviePosterCard(data) {
      }
 
      $styles.insertAdjacentHTML('beforeend', `
-          .card__link {
+          .movie-card {
+               display: inline-block;
+               margin: 0;
+               white-space: normal;
+               vertical-align: top;
+          }
+
+          .movie-card .card__cover {
+               position: relative;
+               height: 0;
+               padding-top: 150.27%;
+               background-color: #202124;
+          }
+
+          .movie-card .card__cover img {
+               position: absolute;
+               display: block;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
+               opacity: 1;
+               transform: scale(1);
+               display: block;
+               max-width: 100%;
+               min-height: 1px;
+          }
+
+          .movie-card .card__link {
                overflow: hidden;
           }
 
-          .card__cover {
+          .movie-card .card__cover {
                margin-bottom: 0.75rem;
           }
 
-         .card__name {
+         .movie-card .card__name {
                margin-bottom: 0.25rem;
                text-overflow: ellipsis;
                overflow: hidden;
@@ -57,40 +85,40 @@ export function MoviePosterCard(data) {
                white-space: nowrap;
           }
 
-          .card__stars,
-          .card__stars > div {
+          .movie-card .card__stars,
+          .movie-card .card__stars > div {
                background-repeat: no-repeat;
                background-size: auto 100%;
           }
 
-          .card__stars {
+          .movie-card .card__stars {
                width: 4.5rem;
                height: 0.75rem;
                background-image: url("../assets/resources/star-frame.png");
           }
 
-          .card__stars > div {
+          .movie-card .card__stars > div {
                height: 100%;
                background-image: url("../assets/resources/star-fill.png");
           }
 
-          .card__rating {
+          .movie-card .card__rating {
                display: flex;
                gap: 0.5rem;
           }
 
-          .card__vote {
+          .movie-card .card__vote {
                font-size: 0.75rem
           }
 
-          .card__explore-all {
+          .movie-card .card__explore-all {
                font-weight: 200;
                font-size: 1rem;
                text-align: center;
                cursor: pointer;
           }
 
-          .card__explore-all {
+          .movie-card .card__explore-all {
                display: flex;
                align-items: center;
                justify-content: center;
