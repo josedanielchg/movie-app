@@ -9,7 +9,7 @@ export function MoviePosterCard(data) {
      $card.classList.add("movie-card", "swiper-slide", "card");
 
      if(props) {
-          props.slug = string_to_slug(props.title);
+          props.slug = `movie/${props.id}/${string_to_slug(props.title)}`;
           $card.insertAdjacentHTML("beforeend", `
                <a href="#/${props.slug}" class="card__link movie-link" title="${props.title}" data-id="${props.id}">
                     <div class="card__cover">
@@ -124,16 +124,6 @@ export function MoviePosterCard(data) {
                justify-content: center;
           }
      `);
-
-     d.addEventListener("click", e => {
-          if(e.target.matches(".movie-link")) {
-               localStorage.setItem("TMDb_id", e.target.dataset.id);
-          }
-
-           if(e.target.matches(".movie-link *")) {
-               localStorage.setItem("TMDb_id", e.target.closest("a.movie-link").dataset.id);
-           }
-     })
 
      return $card;
 }

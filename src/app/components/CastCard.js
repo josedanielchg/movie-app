@@ -10,7 +10,7 @@ export function CastCard(data) {
 
      props.slug = string_to_slug(props.name);
      $card.insertAdjacentHTML("beforeend", `
-          <a href="#/person/${props.slug}" class="card__link cast-link" title="${props.name}" data-id="${props.cast_id}">
+          <a href="#/person/${props.id}/${props.slug}" class="card__link cast-link" title="${props.name}">
                <div class="card__cover">
                     <img src="https://image.tmdb.org/t/p/w342${props.profile_path}" alt="${props.name}">
                </div>
@@ -60,16 +60,6 @@ export function CastCard(data) {
                letter-spacing: 0.4px;
           }
      `);
-
-     d.addEventListener("click", e => {
-          if(e.target.matches(".cast-link")) {
-               localStorage.setItem("TMDb_id", e.target.dataset.id);
-          }
-
-           if(e.target.matches(".cast-link *")) {
-               localStorage.setItem("TMDb_id", e.target.closest("a.movie-link").dataset.id);
-           }
-     })
 
      return $card;
 }

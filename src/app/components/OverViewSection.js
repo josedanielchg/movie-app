@@ -21,13 +21,13 @@ export function OverViewSection(props) {
           directors = props.casts.crew
                .filter(el => el.job === "Director")
                .map(el => `
-                    <a href="#/person/${string_to_slug(el.name)}" title="${el.name}" data-id="${el.id}">
+                    <a href="#/person/${el.id}/${string_to_slug(el.name)}" title="${el.name}" data-id="${el.id}">
                          ${el.name}
                     </a>
                `)
                .join(", "),
           genres = props.genres
-               .map(el => `<a href="#/genre/${el.name}" title="${el.name}" data-id="${el.id}}">${el.name}</a>`)
+               .map(el => `<a href="#/genre/${el.id}/${el.name}" title="${el.name}" data-id="${el.id}}">${el.name}</a>`)
                .join(", "),
           productionCompanies = props.production_companies.map(el => el.name).join(", "),
           budget = (props.budget === 0) ? false : props.budget;

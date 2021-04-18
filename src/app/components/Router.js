@@ -23,6 +23,10 @@ export async function Router() {
           $fragment = d.createDocumentFragment();
      let { hash } = location;
 
+     let movieViewRegEx = /#\/movie\/[0-9]+\/[a-z0-9-]+/,
+          personViewRegEx = /#\/person\/[0-9]+\/[a-z0-9-]+/,
+          category = /#\/category\/[0-9]+\/[a-z0-9-]+/;
+
      $main.appendChild( SearchForm() );
 
      if (!hash || hash === "#/")
@@ -101,11 +105,12 @@ export async function Router() {
                     SwiperConfiguration();
                }
           });
-     else
+     else if(movieViewRegEx.test(hash)) {
+          const movieId = hash.split("/")[2];
           await ajax({
                url: [
-                    `${api.MOVIE}/${localStorage.getItem("TMDb_id")}${api.appendVideosImagesCast}`,
-                     `${api.MOVIE}/${localStorage.getItem("TMDb_id")}/similar`
+                    `${api.MOVIE}/${movieId}${api.appendVideosImagesCast}`,
+                     `${api.MOVIE}/${movieId}/similar`
                ],
                cbSuccess: async (data) => {
                     const currentMovie = data[0],
@@ -157,6 +162,7 @@ export async function Router() {
                     SwiperConfiguration();
                }
           })
+     }
 
      d.querySelector(".loader-container").style.display = "none";
      
