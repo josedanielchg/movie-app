@@ -1,3 +1,5 @@
+import { ModalImage } from "./ModalImage";
+
 export function PhotosSection(images) {
      const d = document,
           $photosSection = d.createElement("div"),
@@ -82,6 +84,29 @@ export function PhotosSection(images) {
                width: calc(100% / 3);
           }
 
+          .movie-details__photos .item .image {
+               position: relative;
+               height: 0;
+               overflow: hidden;
+               background-color: #202124;
+          }
+
+          .movie-details__photos .backdrops .item .image {
+               padding-top: 56.28%;
+          }
+
+          .movie-details__photos .posters .item .image {
+               padding-top: 150.27%;
+          }
+
+          .movie-details__photos .item .image img {
+               position: absolute;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
+          }
+
           @media (min-width: 640px) {
                .movie-details__photos .backdrops .item {
                     width: calc(100% / 3);
@@ -120,6 +145,23 @@ export function PhotosSection(images) {
                }
           }
      `);
+
+     d.addEventListener("click", e => {
+          if(
+               !e.target.matches(".movie-details__photos .item") && 
+               !e.target.matches(".movie-details__photos .item *")
+          ) return false;
+
+          e.preventDefault();
+          let path;
+
+          if(e.target.matches(".items-container .item")) path = e.target.dataset.path;
+          if(e.target.matches(".items-container .item *")) path = e.target.closest(".item").dataset.path;
+
+          const $root = d.getElementById("root");
+          $root.appendChild( ModalImage(path) );
+     })
+
 
      return $photosSection;
 }
