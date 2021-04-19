@@ -116,17 +116,21 @@ export async function Router() {
                     const currentMovie = data[0],
                          similarMovies = data[1].results;
 
-                    const $movieDetailsSection = MovieDetailsSection(currentMovie),
-                         $moreLikeThisSection = SliderSection({
+                    const $movieDetailsSection = MovieDetailsSection(currentMovie);
+
+                   $fragment.appendChild( await Header( currentMovie ) );
+                   $fragment.appendChild($movieDetailsSection);
+
+                    if(similarMovies.length > 0) {
+                         const $moreLikeThisSection = SliderSection({
                               title: "More Like This",
                               SlidesComponent: MoviePosterCard,
                               slidesData: similarMovies,
                               sliderClass: 'more-like-this'
                          });
+                         $fragment.appendChild( $moreLikeThisSection );
+                    }
 
-                   $fragment.appendChild( await Header( currentMovie ) );
-                   $fragment.appendChild($movieDetailsSection),
-                   $fragment.appendChild( $moreLikeThisSection );
                     $main.appendChild($fragment);
 
                     let swiper = new Swiper(".swiper-container", {
