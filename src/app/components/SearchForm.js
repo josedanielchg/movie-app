@@ -72,6 +72,15 @@ export function SearchForm() {
      `);
 
      d.addEventListener("click", e => {
+
+          if(
+               !e.target.matches("#search-btn") && 
+               !e.target.matches("#search-btn *") &&
+               !e.target.matches(".close-search") &&
+               !e.target.matches(".close-search *")
+          )
+               return false
+
           if($formContainer.classList.contains("active")){
                if(
                     !$formContainer.contains(e.target) ||

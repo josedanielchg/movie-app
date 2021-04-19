@@ -1,26 +1,29 @@
-export function MovieDetailsNav() {
+export function SectionNav(props) {
      const d = document,
           $nav = document.createElement("nav"),
-          $styles = document.getElementById("dynamic-styles");
+          $styles = document.getElementById("dynamic-styles"),
+          {parentClass, navButtons} = props;
      
-     $nav.classList.add("movie-details__nav")
+     $nav.classList.add("section-nav")
 
-     $nav.insertAdjacentHTML("beforeend", 
-          `
-          <button class="movie-details__button active">Overview</button>
-          <button class="movie-details__button">Videos</button>
-          <button class="movie-details__button">Photos</button>
-          `
-     );
+     navButtons.forEach( (bttn, index) => {
+          let cssClass = (index === 0) 
+               ? "section-nav__button active" 
+               : "section-nav__button";
 
-     $styles.insertAdjacentHTML("beforeend", `
-          .movie-details__nav {
+          $nav.insertAdjacentHTML("beforeend", `
+               <button class="${cssClass}" data-target="${bttn.targetClass}">${bttn.name}</button>
+          `)
+     });
+
+  $styles.insertAdjacentHTML("beforeend", `
+          .section-nav {
                display: flex;
                height: 3rem;
                background-color: #1b1b1b;
           }
 
-          .movie-details__nav button {
+          .section-nav button {
                display: block;
                width: 100%;
                padding: 0;
@@ -36,24 +39,24 @@ export function MovieDetailsNav() {
                transition: color 0.2s ease;
           }
 
-          .movie-details__nav button:hover,
-          .movie-details__nav button:focus {
+          .section-nav button:hover,
+          .section-nav button:focus {
                color: #fff;
           }
 
-          .movie-details__nav button.active {
+          .section-nav button.active {
                color: #fff;
                background-color: #141414;
           }
 
           @media (min-width: 1024px) {
-               .movie-details__nav {
+               .section-nav {
                     justify-content: center;
                     margin-top: 1.5rem;
                     background: none;
                }
 
-               .movie-details__nav button {
+               .section-nav button {
                     width: auto;
                     margin: 0 1.85rem;
                     font-size: 1.25rem;
@@ -62,18 +65,30 @@ export function MovieDetailsNav() {
                     font-weight: 700;
                }
 
-               .movie-details__nav button:hover,
-               .movie-details__nav button:focus {
+               .section-nav button:hover,
+               .section-nav button:focus {
                     color: #141414;
                }
 
-               .movie-details__nav button.active {
+               .section-nav button.active {
                     background: none;
                     border-color: #141414;
                     color: #141414;
                }
           }
      `);
+
+     d.addEventListener("click", e => {
+
+          if(!e.target.matches(".section-nav__button")) return false;
+          if(e.target.matches(".section-nav__button.active")) return false;
+
+          d.querySelectorAll(".section-nav__button").forEach(bttn => bttn.classList.remove("active"));
+          e.target.classList.add("active");
+
+          d.querySelectorAll(parentClass + " > div").forEach(el => el.classList.remove("active"));
+          d.querySelector(e.target.dataset.target).classList.add("active")
+     })
 
      return $nav;
 }

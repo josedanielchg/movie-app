@@ -52,7 +52,6 @@ export function MoviePosterCard(data) {
                position: relative;
                height: 0;
                padding-top: 150.27%;
-               background-color: #202124;
           }
 
           .movie-card .card__cover img {

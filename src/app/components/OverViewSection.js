@@ -6,10 +6,10 @@ import number_with_commas from "../helpers/number_with_commas.js";
 
 export function OverViewSection(props) {
      const d = document,
-          $overViewSection = document.createElement("div"),
-          $styles = document.getElementById("dynamic-styles");
+          $overViewSection = d.createElement("div"),
+          $styles = d.getElementById("dynamic-styles");
 
-     $overViewSection.classList.add("movie-details__overview");
+     $overViewSection.classList.add("movie-details__overview", "active");
 
      const months = [
                "January", "February", "Mach", "April", "May", "June", 
@@ -117,7 +117,7 @@ export function OverViewSection(props) {
                height: 0;
                padding-top: 150.27%;
                overflow: hidden;
-               background-color: #202124;
+               background-color: #ccc;
           }
 
           .movie-details__overview .left .poster img {

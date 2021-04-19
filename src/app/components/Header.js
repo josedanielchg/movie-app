@@ -1,5 +1,6 @@
 import { ajax } from "../helpers/ajax.js";
 import api from "../helpers/TMDb-api.js";
+import string_to_slug from "../helpers/string_to_slug.js"
 import number_with_commas from "../helpers/number_with_commas.js";
 import { cut_overview } from "../helpers/cut_overview.js";
 import { ModalVideo } from "./ModalVideo.js";
@@ -18,6 +19,7 @@ export async function Header(props) {
 
      $header.classList.add("header");
 
+     props.slug = `movie/${props.id}/${string_to_slug(props.title)}`;
      $header.insertAdjacentHTML("beforeend", `
           <div class="header__backdrop">
                <button type="button" aria-label="Play Trailer" id="watch-trailer" data-key="${trailerKey}">
@@ -267,20 +269,12 @@ export async function Header(props) {
      `);
 
      d.addEventListener("click", e => {
+          if(!e.target.matches(".header #watch-trailer") && !e.target.matches(".header #watch-trailer *")) return false;
+
           const $watchTrailerBtn = d.getElementById("watch-trailer"),
                $root = d.getElementById("root");
 
-          if(!e.target.matches("#watch-trailer") && !e.target.matches("#watch-trailer *")) return false;
           $root.appendChild( ModalVideo($watchTrailerBtn.dataset.key) );
-     })
-
-     d.addEventListener("click", e => {
-          if(e.target.matches(".movie-link")) {
-               localStorage.setItem("TMDb_id", e.target.dataset.id);
-          }
-           if(e.target.matches(".movie-link *")) {
-               localStorage.setItem("TMDb_id", e.target.closest("a.movie-link").dataset.id);
-           }
      })
 
      return $header;

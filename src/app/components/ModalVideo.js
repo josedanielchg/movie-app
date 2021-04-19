@@ -61,14 +61,16 @@ export function ModalVideo(key) {
      `);
 
      d.addEventListener("click", e => {
-          if($modal.classList.contains("active"))
+          if(!e.target.matches("#modal") && !e.target.matches("#modal *")) return false;
+
+          if(d.querySelector("#modal.active"))
                if(
                     e.target.matches("#close-trailer") || 
                     e.target.matches("#close-trailer *") || 
                     e.target.matches("#modal")
                ) {
                     const $root = d.getElementById("root");
-                    $root.removeChild($modal)
+                    $root.removeChild(d.querySelector("#modal"));
                }
      });
 
