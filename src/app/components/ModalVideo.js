@@ -13,7 +13,10 @@ export function ModalVideo(key) {
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 15 15"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"><path d="M.75.75l13.5 13.5M14.25.75L.75 14.25"></path></g></svg>
                </button>
 
-               <iframe src="https://www.youtube.com/embed/${key}?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen" __idm_id__="642651137"></iframe>
+               ${ key === "undefined"
+                    ? `<span class="message">This movie doesn't have any trailer</span>`
+                    : `<iframe src="https://www.youtube.com/embed/${key}?rel=0&amp;showinfo=0&amp;autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen" __idm_id__="642651137"></iframe>`
+               }
           </div>
      `);
 
@@ -27,7 +30,6 @@ export function ModalVideo(key) {
                z-index: 999;
                overflow-x: hidden;
                overflow-y: hidden;
-               cursor: pointer;
                width: 100%;
                height: 100%;
                background: #000;
@@ -51,12 +53,27 @@ export function ModalVideo(key) {
                height: 100%;
           }
 
+          .modal__iframe .message {
+               color: #eee;
+               position: absolute;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               width: 100%;
+               height: 100%;
+               top: 50%;
+               left: 50%;
+               transform: translate(-50%, -50%);
+               font-size: 2rem;
+          }
+
           .modal__close {
                position: absolute;
                top: 0;
                right: 0;
                width: 2rem;
                height: 2rem;
+               z-index: 10;
           }
      `);
 
@@ -67,6 +84,7 @@ export function ModalVideo(key) {
                if(
                     e.target.matches("#close-trailer") || 
                     e.target.matches("#close-trailer *") || 
+                    e.target.matches("#modal .message") || 
                     e.target.matches("#modal")
                ) {
                     const $root = d.getElementById("root");

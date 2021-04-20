@@ -25,7 +25,11 @@ export async function Header(props) {
                <button type="button" aria-label="Play Trailer" id="watch-trailer" data-key="${trailerKey}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></circle><path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z"></path></svg>
                </button>
-               <img src="https://image.tmdb.org/t/p/w1280${props.backdrop_path}" alt="">
+               ${
+                    props.backdrop_path
+                    ? `<img src="https://image.tmdb.org/t/p/w1280${props.backdrop_path}" alt="">`
+                    : ""
+               }
           </div>
 
           <div class="header__data">

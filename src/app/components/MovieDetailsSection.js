@@ -8,17 +8,19 @@ export function MovieDetailsSection(props) {
           $section = document.createElement("section"),
           $styles = document.getElementById("dynamic-styles");
 
-     console.log(props);
-
      $section.classList.add("movie-details");
+
+     let sections = [{name: "Overview", targetClass: ".movie-details__overview"}     ]
+
+     if(props.videos.results.length > 0)
+          sections.push({name: "Videos", targetClass: ".movie-details__videos"})
+
+     if(props.images.backdrops.length > 0 || props.images.posters.length > 0)
+          sections.push( {name: "Photos", targetClass: ".movie-details__photos"})
 
      $section.insertAdjacentElement("beforeend", SectionNav({
           parentClass: ".movie-details",
-          navButtons: [
-               {name: "Overview", targetClass: ".movie-details__overview"},
-               {name: "Videos", targetClass: ".movie-details__videos"},
-               {name: "Photos", targetClass: ".movie-details__photos"}
-          ]
+          navButtons: sections
      }) );
 
      $section.insertAdjacentElement("beforeend", OverViewSection(props) );
