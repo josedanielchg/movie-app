@@ -183,6 +183,7 @@ export function VideosSection(videos) {
      })
 
      d.addEventListener("click", e => {
+          if(d.getElementById("modal")) return false
           if(
                !e.target.matches(".items-container #watch-trailer") && 
                !e.target.matches(".items-container #watch-trailer *")

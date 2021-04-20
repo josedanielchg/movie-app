@@ -273,6 +273,7 @@ export async function Header(props) {
      `);
 
      d.addEventListener("click", e => {
+          if(d.getElementById("modal")) return false
           if(!e.target.matches(".header #watch-trailer") && !e.target.matches(".header #watch-trailer *")) return false;
 
           const $watchTrailerBtn = d.getElementById("watch-trailer"),
