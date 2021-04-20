@@ -97,5 +97,14 @@ export function SearchForm() {
           }
      });
 
+     d.addEventListener("submit", e=> {
+          e.preventDefault()
+          if(!e.target.matches(".search-form")) return false;
+
+          const query = d.querySelector("form.search-form").search.value;
+          location.hash = `#/search?q=${query}`
+
+     })
+
      return $formContainer;
 }

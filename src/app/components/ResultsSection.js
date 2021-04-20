@@ -4,13 +4,16 @@ export function ResultsSection(data) {
      const d = document,
           $section = document.createElement("section"),
           $styles = document.getElementById("dynamic-styles"),
-          {title, keyWord, props} = data,
+          {title, keyWord, props, searchFormIsActive} = data,
           {results, page} = props;
 
      $section.classList.add("results");
 
-     d.getElementById("search-form").classList.add("active")
-     d.querySelector(".search-form input").value = keyWord;
+     if(searchFormIsActive) {
+          d.getElementById("search-form").classList.add("active")
+          d.querySelector(".search-form input").value = keyWord;
+     } else
+          $section.classList.add("whitout-extra-padding");
 
      $section.insertAdjacentHTML("beforeend", `
           <div class="results__head">
@@ -31,6 +34,10 @@ export function ResultsSection(data) {
                margin: 1.5rem 1.225rem;
                color: #141414;
                padding-top: 3.75rem;
+          }
+
+          .results.whitout-extra-padding {
+               padding-top: 0;
           }
 
           .results__head {
@@ -72,8 +79,12 @@ export function ResultsSection(data) {
 
           @media (min-width: 1024px) {
                .results {
-                    margin: 3.15rem 2.45rem;
-                    padding-top: 4.5rem;
+                    margin: 1.5rem 2.45rem;
+                    padding-top: 6rem;
+               }
+
+               .results.whitout-extra-padding {
+                    padding-top: 0;
                }
 
                .results__title {

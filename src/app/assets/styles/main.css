@@ -6,6 +6,7 @@ html {
 body {
   background-color: #eee;
   letter-spacing: 0.4px;
+  scroll-behavior: smooth;
 }
 
 @media (min-width: 1024px) {

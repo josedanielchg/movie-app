@@ -16,6 +16,8 @@ import { MovieDetailsSection } from "./MovieDetailsSection.js"
 import { ResultsSection } from "./ResultsSection"
 
 export async function Router() {
+     window.scrollTo(0,0)
+
      const d = document,
           w = window,
           $root = document.getElementById("root");
@@ -29,8 +31,8 @@ export async function Router() {
 
      let movieViewRegEx = /#\/movie\/[0-9]+\/[a-z0-9-]+/,
           personViewRegEx = /#\/person\/[0-9]+\/[a-z0-9-]+/,
-          categoryViewRegEx = /#\/category\/[0-9]+\/[a-z0-9-]+/,
-          searchViewRegEx = /#\/search\/[a-z0-9-]+/;
+          genreViewRegEx = /#\/genre\/[0-9]+\/[A-Za-z0-9-]+/,
+          searchViewRegEx = /#\/search\?q\=[a-z0-9-#!%]+/;
 
      if (!hash || hash === "#/")
           await ajax({
@@ -172,15 +174,36 @@ export async function Router() {
           })
      }
 
+     if(genreViewRegEx.test(hash)){
+          const genreId = hash.split("/")[2],
+               genreName = hash.split("/")[3];
+          console.log(genreId)
+          await ajax({
+               url: `${api.POPULAR}${api.withGenres}${genreId}`,
+               cbSuccess: async (data) => {
+                    const $resultsSection = ResultsSection({
+                         title: `Movie Genre: ${decodeURIComponent(genreName)}`,
+                         keyWord: decodeURIComponent(genreName),
+                         props: data,
+                         searchFormIsActive: false,
+                    });
+
+                   $fragment.appendChild( $resultsSection );
+                    $main.appendChild($fragment);
+               }
+          })
+     }
+
      if(searchViewRegEx.test(hash)){
-          const keyWord = hash.split("/")[2];
+          const keyWord = hash.slice(hash.indexOf("?q=")+3, hash.length);
           await ajax({
                url: `${api.SEARCH}${keyWord}`,
                cbSuccess: async (data) => {
                     const $resultsSection = ResultsSection({
-                         title: `Search For: ${keyWord}`,
-                         keyWord,
-                         props: data
+                         title: `Search For: ${decodeURIComponent(keyWord)}`,
+                         keyWord: decodeURIComponent(keyWord),
+                         props: data,
+                         searchFormIsActive: true,
                     });
 
                    $fragment.appendChild( $resultsSection );
@@ -190,5 +213,4 @@ export async function Router() {
      }
 
      d.querySelector(".loader-container").style.display = "none";
-     
 }
