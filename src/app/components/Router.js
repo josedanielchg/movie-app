@@ -5,6 +5,7 @@ Swiper.use([Navigation, Pagination]);
 //helpers
 import { ajax } from "../helpers/ajax.js";
 import api from "../helpers/TMDb-api.js";
+import genresList from "../helpers/genresList";
 
 //components
 import { Header } from "./Header";
@@ -176,8 +177,7 @@ export async function Router() {
 
      if(genreViewRegEx.test(hash)){
           const genreId = hash.split("/")[2],
-               genreName = hash.split("/")[3];
-          console.log(genreId)
+               genreName = genresList.find(genre => genre.id == genreId).name;
           await ajax({
                url: `${api.POPULAR}${api.withGenres}${genreId}`,
                cbSuccess: async (data) => {
@@ -187,7 +187,6 @@ export async function Router() {
                          props: data,
                          searchFormIsActive: false,
                     });
-
                    $fragment.appendChild( $resultsSection );
                     $main.appendChild($fragment);
                }

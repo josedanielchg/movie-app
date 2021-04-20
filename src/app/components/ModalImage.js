@@ -1,7 +1,5 @@
 export function ModalImage(file_path) {
 
-     console.log(file_path)
-
      const d = document,
           $modal = document.createElement("div"),
           $styles = document.getElementById("dynamic-styles");
@@ -63,8 +61,6 @@ export function ModalImage(file_path) {
 
      d.addEventListener("click", e => {
           if(!e.target.matches("#modal") && !e.target.matches("#modal *")) return false;
-
-          console.log(e.target);
 
           if(d.querySelector("#modal.active"))
                if(
