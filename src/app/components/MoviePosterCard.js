@@ -32,9 +32,9 @@ export function MoviePosterCard(data) {
           $card.classList.add("explore-all");
 
           $card.insertAdjacentHTML("beforeend", `
-               <a href="${lastCard.link}" class="card__link card__explore-all" title="${lastCard.title}">
+               <a href="${lastCard.link}" class="card__link" title="${lastCard.title}">
                     <div alt="" class="card__cover ">
-                         ${lastCard.title}
+                         <span>${lastCard.title}</span>
                     </div>
                </a>
           `);
@@ -110,17 +110,16 @@ export function MoviePosterCard(data) {
                font-size: 0.75rem
           }
 
-          .movie-card .card__explore-all {
-               font-weight: 200;
-               font-size: 1rem;
-               text-align: center;
-               cursor: pointer;
-          }
-
-          .movie-card .card__explore-all {
+          .movie-card.explore-all span {
+               position: absolute;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
                display: flex;
                align-items: center;
                justify-content: center;
+               font-size: 1rem;
           }
      `);
 
