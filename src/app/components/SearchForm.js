@@ -3,6 +3,7 @@ export function SearchForm() {
           $formContainer = d.createElement("div"),
           $styles = document.getElementById("dynamic-styles");
      
+     $formContainer.id = "search-form"
      $formContainer.classList.add("search-form-container");
      
      $formContainer.insertAdjacentHTML("beforeend", `
@@ -83,7 +84,6 @@ export function SearchForm() {
 
           if($formContainer.classList.contains("active")){
                if(
-                    !$formContainer.contains(e.target) ||
                     e.target.matches(".close-search") ||
                     e.target.matches(".close-search *")
                )

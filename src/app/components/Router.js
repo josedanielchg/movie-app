@@ -13,6 +13,7 @@ import { SwiperConfiguration } from "../helpers/SwiperConfiguration.js";
 import { SliderSection } from "./SliderSection.js";
 import { SearchForm } from "./SearchForm.js"
 import { MovieDetailsSection } from "./MovieDetailsSection.js"
+import { ResultsSection } from "./ResultsSection"
 
 export async function Router() {
      const d = document,
@@ -21,13 +22,15 @@ export async function Router() {
 
      const $main = d.getElementById("main"),
           $fragment = d.createDocumentFragment();
+
      let { hash } = location;
+
+     $main.appendChild( SearchForm() );
 
      let movieViewRegEx = /#\/movie\/[0-9]+\/[a-z0-9-]+/,
           personViewRegEx = /#\/person\/[0-9]+\/[a-z0-9-]+/,
-          category = /#\/category\/[0-9]+\/[a-z0-9-]+/;
-
-     $main.appendChild( SearchForm() );
+          categoryViewRegEx = /#\/category\/[0-9]+\/[a-z0-9-]+/,
+          searchViewRegEx = /#\/search\/[a-z0-9-]+/;
 
      if (!hash || hash === "#/")
           await ajax({
@@ -105,7 +108,8 @@ export async function Router() {
                     SwiperConfiguration();
                }
           });
-     else if(movieViewRegEx.test(hash)) {
+
+     if(movieViewRegEx.test(hash)){
           const movieId = hash.split("/")[2];
           await ajax({
                url: [
@@ -164,6 +168,23 @@ export async function Router() {
                          },
                     });
                     SwiperConfiguration();
+               }
+          })
+     }
+
+     if(searchViewRegEx.test(hash)){
+          const keyWord = hash.split("/")[2];
+          await ajax({
+               url: `${api.SEARCH}${keyWord}`,
+               cbSuccess: async (data) => {
+                    const $resultsSection = ResultsSection({
+                         title: `Search For: ${keyWord}`,
+                         keyWord,
+                         props: data
+                    });
+
+                   $fragment.appendChild( $resultsSection );
+                    $main.appendChild($fragment);
                }
           })
      }
