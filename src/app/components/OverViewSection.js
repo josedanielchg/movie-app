@@ -3,6 +3,7 @@ import { CastCard } from "./CastCard.js"
 import string_to_slug from "../helpers/string_to_slug.js";
 import runtime_parse from "../helpers/runtime_parse.js";
 import number_with_commas from "../helpers/number_with_commas.js";
+import formatDate from "../helpers/formatDate.js";
 
 export function OverViewSection(props) {
      const d = document,
@@ -11,13 +12,8 @@ export function OverViewSection(props) {
 
      $overViewSection.classList.add("movie-details__overview", "active");
 
-     const months = [
-               "January", "February", "Mach", "April", "May", "June", 
-               "July", "August", "September", "October", "November", "December"
-          ],
-          langugeName = new Intl.DisplayNames(['en'], {type: 'language'}),
-          date = new Date(props.release_date+"T00:00:00"),
-          release_date = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`,
+     const langugeName = new Intl.DisplayNames(['en'], {type: 'language'}),
+          release_date = formatDate(props.release_date),
           directors = props.casts.crew
                .filter(el => el.job === "Director")
                .map(el => `
@@ -231,7 +227,6 @@ export function OverViewSection(props) {
                }
           }
 
-          /* ----------------------- */
           @media (min-width: 1024px) {
                .movie-details__overview .details {
                     margin: 3.15rem 2.45rem;
