@@ -12,9 +12,10 @@ import { Header } from "./Header";
 import { MoviePosterCard } from "./MoviePosterCard.js";
 import { SwiperConfiguration } from "../helpers/SwiperConfiguration.js";
 import { SliderSection } from "./SliderSection.js";
-import { SearchForm } from "./SearchForm.js"
-import { MovieDetailsSection } from "./MovieDetailsSection.js"
-import { ResultsSection } from "./ResultsSection"
+import { SearchForm } from "./SearchForm.js";
+import { MovieDetailsSection } from "./MovieDetailsSection.js";
+import { ResultsSection } from "./ResultsSection";
+import { PersonDescriptionSection } from "./PersonDescriptionSection.js";
 
 export async function Router() {
      window.scrollTo(0,0)
@@ -188,6 +189,31 @@ export async function Router() {
                          searchFormIsActive: false,
                     });
                    $fragment.appendChild( $resultsSection );
+                    $main.appendChild($fragment);
+               }
+          })
+     }
+
+     if(personViewRegEx.test(hash)){
+          const personId = hash.split("/")[2];
+          await ajax({
+               url: [
+                    `${api.PERSON}/${personId}`,
+                    `${api.PERSON}/${personId}/movie_credits?sort_by=popularity.desc`,
+                    `${api.PERSON}/${personId}/images`
+               ],
+               cbSuccess: (data) => {
+                    const biography = data[0],
+                         movieCredits = data[1],
+                         images = data[2];
+
+                    const $personDescriptionSection = PersonDescriptionSection(biography)
+
+                    console.log(biography);
+                    console.log(movieCredits);
+                    console.log(images);
+
+                   $fragment.appendChild( $personDescriptionSection );
                     $main.appendChild($fragment);
                }
           })

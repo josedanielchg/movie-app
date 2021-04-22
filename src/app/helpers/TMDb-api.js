@@ -7,6 +7,7 @@ const NAME = "api.themoviedb",
      DISCOVER = `${SITE}/discover/movie`,
      POPULAR = `${DISCOVER}?sort_by=popularity.desc`,
      TRENDING = `${SITE}/trending/movie/day`,
+     PERSON = `${SITE}/person`,
      appendVideosImages = "?append_to_response=videos,images",
      appendVideosImagesCast = "?append_to_response=videos,images,casts",
      withGenres = "&with_genres=";
@@ -22,6 +23,7 @@ export default  {
      DISCOVER,
      POPULAR,
      TRENDING,
+     PERSON,
      appendVideosImages,
      appendVideosImagesCast,
      withGenres

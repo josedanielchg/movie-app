@@ -9,8 +9,14 @@ body {
   scroll-behavior: smooth;
 }
 
+.main {
+  min-height: calc(100vh - 11.21rem);
+}
+
 @media (min-width: 1024px) {
   body {
     padding-left: 6.25rem;
   }
 }
+
+/* -------------------------------------------------- */
