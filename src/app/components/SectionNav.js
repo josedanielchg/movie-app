@@ -1,9 +1,8 @@
-export function SectionNav(props) {
+export function SectionNav(navButtons) {
      const d = document,
           $nav = document.createElement("nav"),
-          $styles = document.getElementById("dynamic-styles"),
-          {parentClass, navButtons} = props;
-     
+          $styles = document.getElementById("dynamic-styles");
+
      $nav.classList.add("section-nav")
 
      navButtons.forEach( (bttn, index) => {
@@ -83,11 +82,13 @@ export function SectionNav(props) {
           if(!e.target.matches(".section-nav__button")) return false;
           if(e.target.matches(".section-nav__button.active")) return false;
 
+          let parentClass = d.querySelector(".section-nav").closest("section").classList[0];
+
           d.querySelectorAll(".section-nav__button").forEach(bttn => bttn.classList.remove("active"));
           e.target.classList.add("active");
 
-          d.querySelectorAll(parentClass + " > div").forEach(el => el.classList.remove("active"));
-          d.querySelectorAll(parentClass + " > section").forEach(el => el.classList.remove("active"));
+          d.querySelectorAll(`.${parentClass} > div` ).forEach(el => el.classList.remove("active"));
+          d.querySelectorAll(`.${parentClass} > section` ).forEach(el => el.classList.remove("active"));
           d.querySelector(e.target.dataset.target).classList.add("active")
      })
 

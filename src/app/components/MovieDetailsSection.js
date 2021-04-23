@@ -18,11 +18,7 @@ export function MovieDetailsSection(props) {
      if(props.images.backdrops.length > 0 || props.images.posters.length > 0)
           sections.push( {name: "Photos", targetClass: ".movie-details__photos"})
 
-     $section.insertAdjacentElement("beforeend", SectionNav({
-          parentClass: ".movie-details",
-          navButtons: sections
-     }) );
-
+     $section.insertAdjacentElement("beforeend", SectionNav(sections));
      $section.insertAdjacentElement("beforeend", OverViewSection(props) );
      $section.insertAdjacentElement("beforeend", VideosSection(props.videos.results) );
      $section.insertAdjacentElement("beforeend", PhotosSection({

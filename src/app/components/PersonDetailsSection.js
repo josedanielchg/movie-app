@@ -5,7 +5,7 @@ import { PhotosSection } from "./PhotosSection.js";
 
 export function PersonDetailsSection(props) {
      const d = document,
-          $section = d.createElement("div"),
+          $section = d.createElement("section"),
           $styles = d.getElementById("dynamic-styles"),
           {movieCredits, images} = props
 
@@ -13,14 +13,13 @@ export function PersonDetailsSection(props) {
      
      $section.classList.add("person-details");
 
-     $section.insertAdjacentElement("beforeend", SectionNav({
-          parentClass: ".person-details",
-          navButtons: [
+     $section.insertAdjacentElement("beforeend", SectionNav(
+          [
                {name: "Known For", targetClass: ".person-details__known-for"},
                {name: "Credits", targetClass: ".person-details__credits"},
                {name: "Photos", targetClass: ".person-details__photos"}
           ]
-     }) );
+     ));
 
      $section.insertAdjacentElement("beforeend", ResultsSection({
           title: false,
