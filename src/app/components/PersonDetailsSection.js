@@ -7,32 +7,55 @@ export function PersonDetailsSection(props) {
      const d = document,
           $section = d.createElement("section"),
           $styles = d.getElementById("dynamic-styles"),
-          {movieCredits, images} = props
+          {movieCredits, images} = props,
+          navSection = [];
 
      $section.classList.add("person-details");
 
-     $section.insertAdjacentElement("beforeend", SectionNav(
-          [
-               {name: "Known For", targetClass: ".person-details__known-for"},
-               {name: "Credits", targetClass: ".person-details__credits"},
-               {name: "Photos", targetClass: ".person-details__photos"}
-          ]
-     ));
+     //Nav Buttons according to data
+     if(movieCredits.cast.length > 0)
+          navSection.push({name: "Known For", targetClass: ".person-details__known-for"});
 
-     $section.insertAdjacentElement("beforeend", ResultsSection({
-          title: false,
-          results: movieCredits.cast.sort((a,b) => b.popularity - a.popularity),
-          searchFormIsActive: false,
-          classList: ["person-details__known-for", "active"]
-     }) );
-     $section.insertAdjacentElement("beforeend", CreditsSection({
-          cast: movieCredits.cast.sort((a,b) => new Date(b.release_date) - new Date(a.release_date)),
-          crew: movieCredits.crew.sort((a,b) => new Date(b.release_date) - new Date(a.release_date)),
-     }) );
-     $section.insertAdjacentElement("beforeend", PhotosSection({
-          images: {photos: props.images.profiles},
-          classList: ["person-details__photos"]
-     }) );
+     if(movieCredits.cast.length > 0 || movieCredits.crew.length >0)
+          navSection.push({name: "Credits", targetClass: ".person-details__credits"});
+
+     if(images.profiles.length > 0)
+          navSection.push({name: "Photos", targetClass: ".person-details__photos"})
+
+     $section.insertAdjacentElement("beforeend", SectionNav(navSection));
+
+     //Nav Section Activate by default according to data
+     if(navSection.find(sec => sec.name === "Known For"))
+          $section.insertAdjacentElement("beforeend", ResultsSection({
+               title: false,
+               results: movieCredits.cast.sort((a,b) => b.popularity - a.popularity),
+               searchFormIsActive: false,
+               classList: ["person-details__known-for", "active"]
+          }) );
+
+     if(navSection.find(sec => sec.name === "Known For"))
+          $section.insertAdjacentElement("beforeend", CreditsSection({
+               cast: movieCredits.cast.sort((a,b) => new Date(b.release_date) - new Date(a.release_date)),
+               crew: movieCredits.crew.sort((a,b) => new Date(b.release_date) - new Date(a.release_date)),
+               classList: ["person-details__credits"]
+          }) );
+     else
+          $section.insertAdjacentElement("beforeend", CreditsSection({
+               cast: movieCredits.cast.sort((a,b) => new Date(b.release_date) - new Date(a.release_date)),
+               crew: movieCredits.crew.sort((a,b) => new Date(b.release_date) - new Date(a.release_date)),
+               classList: ["person-details__credits", "active"]
+          }) );
+
+     if(navSection.find(sec => sec.name === "Known For") || navSection.find(sec => sec.name === "Credits"))
+          $section.insertAdjacentElement("beforeend", PhotosSection({
+               images: {photos: props.images.profiles},
+               classList: ["person-details__photos"]
+          }) );
+     else
+          $section.insertAdjacentElement("beforeend", PhotosSection({
+               images: {photos: props.images.profiles},
+               classList: ["person-details__photos", "active"]
+          }) );
 
      $styles.insertAdjacentHTML("beforeend", `
           .person-details {

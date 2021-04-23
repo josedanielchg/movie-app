@@ -7,7 +7,7 @@ export function CreditsSection(props) {
           deparments = [];
      let moviesByDeparment = {};
 
-     $creditsSection.classList.add("person-details__credits");
+     $creditsSection.classList.add(...props.classList);
      /*
      Create moviesByDeparment Object: 
      {
@@ -24,15 +24,17 @@ export function CreditsSection(props) {
           }
      }
      */ 
-     deparments.push("Acting")
-     moviesByDeparment["Acting"] = {};
+    if(props.cast.length > 0) {
+          deparments.push("Acting")
+          moviesByDeparment["Acting"] = {};
 
-     props.cast.forEach(mov => {
-          let movieYear = new Date(mov.release_date).getFullYear() || "----";
-          if(!moviesByDeparment["Acting"][movieYear])
-               moviesByDeparment["Acting"][movieYear] = []
-          moviesByDeparment["Acting"][movieYear].push(mov);
-     })
+          props.cast.forEach(mov => {
+               let movieYear = new Date(mov.release_date).getFullYear() || "----";
+               if(!moviesByDeparment["Acting"][movieYear])
+                    moviesByDeparment["Acting"][movieYear] = []
+               moviesByDeparment["Acting"][movieYear].push(mov);
+          })
+    }
 
      props.crew.forEach(mov=> {
           let movieDepartment = mov.department,
