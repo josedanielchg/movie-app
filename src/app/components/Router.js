@@ -26,7 +26,8 @@ export async function Router() {
           $root = document.getElementById("root");
 
      const $main = d.getElementById("main"),
-          $fragment = d.createDocumentFragment();
+          $fragment = d.createDocumentFragment(),
+          $title = d.querySelector("title");
 
      let { hash } = location;
 
@@ -37,7 +38,8 @@ export async function Router() {
           genreViewRegEx = /#\/genre\/[0-9]+\/[A-Za-z0-9-]+/,
           searchViewRegEx = /#\/search\?q\=[a-z0-9-#!%]+/;
 
-     if (!hash || hash === "#/")
+     if (!hash || hash === "#/") {
+          $title.innerText = "Movie App"
           await ajax({
                url: [
                     api.TRENDING,
@@ -70,7 +72,8 @@ export async function Router() {
                               SlidesComponent: MoviePosterCard,
                               slidesData: popularActionMovies,
                               sliderClass: 'browse-category',
-                              changeSlidersButtonsData:  genresList
+                              changeSlidersButtonsData:  genresList,
+                              linkExploreAll:  "#/genre/14/Action",
                          });
 
                     $fragment.appendChild( await Header( popularMovies[0]) );
@@ -113,6 +116,7 @@ export async function Router() {
                     SwiperConfiguration();
                }
           });
+     }
 
      if(movieViewRegEx.test(hash)){
           const movieId = hash.split("/")[2];
@@ -127,8 +131,9 @@ export async function Router() {
 
                     const $movieDetailsSection = MovieDetailsSection(currentMovie);
 
-                   $fragment.appendChild( await Header( currentMovie ) );
-                   $fragment.appendChild($movieDetailsSection);
+                    $title.innerText = currentMovie.title + "- Movie";
+                    $fragment.appendChild( await Header( currentMovie ) );
+                    $fragment.appendChild($movieDetailsSection);
 
                     if(similarMovies.length > 0) {
                          const $moreLikeThisSection = SliderSection({
@@ -180,6 +185,7 @@ export async function Router() {
      if(genreViewRegEx.test(hash)){
           const genreId = hash.split("/")[2],
                genreName = genresList.find(genre => genre.id == genreId).name;
+          $title.innerText = genreName + "  - Movies";
           await ajax({
                url: `${api.POPULAR}${api.withGenres}${genreId}`,
                cbSuccess: async (data) => {
@@ -207,6 +213,8 @@ export async function Router() {
                     const biography = data[0],
                          movieCredits = data[1],
                          images = data[2];
+                    
+                    $title.innerText = biography.name;
 
                     const $personDescriptionSection = PersonDescriptionSection(biography),
                          $PersonDetailsSection = PersonDetailsSection({movieCredits, images});
@@ -219,6 +227,7 @@ export async function Router() {
      }
 
      if(searchViewRegEx.test(hash)){
+          $title.innerText = "Search"
           const keyWord = hash.slice(hash.indexOf("?q=")+3, hash.length);
           await ajax({
                url: `${api.SEARCH}${keyWord}`,

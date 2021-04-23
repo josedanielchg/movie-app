@@ -1,4 +1,5 @@
 import api from "../helpers/TMDb-api.js"
+import genresList from "../helpers/genresList";
 import { ajax } from "../helpers/ajax.js"
 
 export function ChangeSliderButtons(conf) {
@@ -86,6 +87,16 @@ export function ChangeSliderButtons(conf) {
                          $slide.style['width'] = width;
                          $slide.style['margin-right'] = margin_right;
                     });
+
+                    let $lastCard = SlidesComponent({
+                         lastCard: {
+                              title: "Explore More...",
+                              link: `#/genre/${e.target.dataset.id}/${genresList.find(genre => genre.id == e.target.dataset.id).name}`
+                         }
+                    })
+                    $fragment.appendChild($lastCard);
+                    $lastCard.style['width'] = width;
+                    $lastCard.style['margin-right'] = margin_right;
 
                     d.querySelector(`.${sliderClass} .swiper-wrapper`).appendChild($fragment)
                     $backdrop.style.display = "none";
