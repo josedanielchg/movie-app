@@ -25,7 +25,10 @@ export function MovieDetailsSection(props) {
 
      $section.insertAdjacentElement("beforeend", OverViewSection(props) );
      $section.insertAdjacentElement("beforeend", VideosSection(props.videos.results) );
-     $section.insertAdjacentElement("beforeend", PhotosSection(props.images) );
+     $section.insertAdjacentElement("beforeend", PhotosSection({
+          classList: ["movie-details__photos"],
+          images: props.images
+     }) );
 
   $styles.insertAdjacentHTML("beforeend", `
           .movie-details {
