@@ -6,8 +6,16 @@ export function PhotosSection(data) {
           $styles = d.getElementById("dynamic-styles"),
           {images, classList} = data,
           imagesType = Object.entries(images).map(el => el[0]),
-          backdrops = images.backdrops ? images.backdrops.filter(img => img.iso_639_1 === "en") : null,
-          posters = images.posters ? images.posters.filter(img => img.iso_639_1 === "en") : null,
+          backdrops = images.backdrops 
+               ? images.backdrops.filter(img => img.iso_639_1 === "en").length > 0
+                    ? images.backdrops.filter(img => img.iso_639_1 === "en")
+                    : images.backdrops
+               : null,
+          posters = images.posters
+               ? images.posters.filter(img => img.iso_639_1 === "en").length > 0
+                    ? images.posters.filter(img => img.iso_639_1 === "en")
+                    : images.posters
+               : null,
           photos = images.photos ? images.photos : null;
 
      $photosSection.classList.add(...classList);
