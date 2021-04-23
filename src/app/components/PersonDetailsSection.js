@@ -9,8 +9,6 @@ export function PersonDetailsSection(props) {
           $styles = d.getElementById("dynamic-styles"),
           {movieCredits, images} = props
 
-     console.log(props);
-     
      $section.classList.add("person-details");
 
      $section.insertAdjacentElement("beforeend", SectionNav(
@@ -27,7 +25,10 @@ export function PersonDetailsSection(props) {
           searchFormIsActive: false,
           classList: ["person-details__known-for", "active"]
      }) );
-     $section.insertAdjacentElement("beforeend", CreditsSection(movieCredits.cast.sort((a,b) => b.popularity - a.popularity)) );
+     $section.insertAdjacentElement("beforeend", CreditsSection({
+          cast: movieCredits.cast.sort((a,b) => new Date(b.release_date) - new Date(a.release_date)),
+          crew: movieCredits.crew.sort((a,b) => new Date(b.release_date) - new Date(a.release_date)),
+     }) );
      $section.insertAdjacentElement("beforeend", PhotosSection({
           images: {photos: props.images.profiles},
           classList: ["person-details__photos"]
@@ -53,8 +54,20 @@ export function PersonDetailsSection(props) {
                opacity: 1;
           }
 
-          .person-details .person-details__known-for {
-          margin-top: 3.15rem;
+          .person-details .person-details__known-for  {
+               margin: 1.5rem 1.225rem;
+          }
+
+          @media (min-width: 768px) {
+               .person-details .person-details__known-for  {
+                    margin: 1.5rem 2.5rem;
+               }
+          }
+
+          @media (min-width: 1024px) {
+               .person-details .person-details__known-for  {
+                    margin: 3.75rem 2.45rem;
+               }
           }
      `)
 
