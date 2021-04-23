@@ -4,8 +4,14 @@ export function ResultsSection(data) {
      const d = document,
           $section = document.createElement("section"),
           $styles = document.getElementById("dynamic-styles"),
-          {title, keyWord, props, searchFormIsActive} = data,
-          {results, page} = props;
+          {
+               title, 
+               keyWord, 
+               searchFormIsActive,
+               results, 
+               page,
+               classList
+          } = data;
 
      $section.classList.add("results");
 
@@ -15,10 +21,16 @@ export function ResultsSection(data) {
      } else
           $section.classList.add("whitout-extra-padding");
 
+     if(classList)
+          $section.classList.add(...classList)
+
      $section.insertAdjacentHTML("beforeend", `
-          <div class="results__head">
-               <h2 class="results__title">${title}</h2>
-          </div>
+          ${!title
+               ? ""
+               : `<div class="results__head">
+                    <h2 class="results__title">${title}</h2>
+               </div>`
+          }
           <div class="results__items"></div>
           <div class="results__loader">
           </div>

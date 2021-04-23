@@ -87,6 +87,7 @@ export function SectionNav(props) {
           e.target.classList.add("active");
 
           d.querySelectorAll(parentClass + " > div").forEach(el => el.classList.remove("active"));
+          d.querySelectorAll(parentClass + " > section").forEach(el => el.classList.remove("active"));
           d.querySelector(e.target.dataset.target).classList.add("active")
      })
 

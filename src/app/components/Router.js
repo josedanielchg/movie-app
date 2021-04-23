@@ -16,6 +16,7 @@ import { SearchForm } from "./SearchForm.js";
 import { MovieDetailsSection } from "./MovieDetailsSection.js";
 import { ResultsSection } from "./ResultsSection";
 import { PersonDescriptionSection } from "./PersonDescriptionSection.js";
+import { PersonDetailsSection } from "./PersonDetailsSection.js";
 
 export async function Router() {
      window.scrollTo(0,0)
@@ -184,8 +185,8 @@ export async function Router() {
                cbSuccess: async (data) => {
                     const $resultsSection = ResultsSection({
                          title: `Movie Genre: ${decodeURIComponent(genreName)}`,
-                         keyWord: decodeURIComponent(genreName),
-                         props: data,
+                         results: data.results,
+                         page: data.page,
                          searchFormIsActive: false,
                     });
                    $fragment.appendChild( $resultsSection );
@@ -207,13 +208,11 @@ export async function Router() {
                          movieCredits = data[1],
                          images = data[2];
 
-                    const $personDescriptionSection = PersonDescriptionSection(biography)
-
-                    console.log(biography);
-                    console.log(movieCredits);
-                    console.log(images);
+                    const $personDescriptionSection = PersonDescriptionSection(biography),
+                         $PersonDetailsSection = PersonDetailsSection({movieCredits, images});
 
                    $fragment.appendChild( $personDescriptionSection );
+                   $fragment.appendChild( $PersonDetailsSection );
                     $main.appendChild($fragment);
                }
           })
@@ -227,7 +226,8 @@ export async function Router() {
                     const $resultsSection = ResultsSection({
                          title: `Search For: ${decodeURIComponent(keyWord)}`,
                          keyWord: decodeURIComponent(keyWord),
-                         props: data,
+                         results: data.results,
+                         page: data.page,
                          searchFormIsActive: true,
                     });
 
