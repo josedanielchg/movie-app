@@ -42,12 +42,15 @@ export function OverViewSection(props) {
                </div>
 
                <div class="right">
-                    <div class="overview">
-                         <h2 class="title">Storyline</h2>
-                         <div>
-                              <p>${props.overview}</p>
-                         </div>
-                    </div>
+                    ${!props.overview
+                         ? ""
+                         : `<div class="overview">
+                              <h2 class="title">Storyline</h2>
+                              <div>
+                                   <p>${props.overview}</p>
+                              </div>
+                         </div>`
+                    }
                     <div class="stats">
                          <ul>
                               ${ !release_date 
