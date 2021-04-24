@@ -13,7 +13,8 @@ const NAME = "api.themoviedb",
      withGenres = "&with_genres=";
 
 let page = 1,
-     total_pages = 1;
+     total_pages = 1,
+     infinite_url;
 
 
 export default  {
@@ -32,4 +33,5 @@ export default  {
      withGenres,
      page,
      total_pages,
+     infinite_url
 }

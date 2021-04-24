@@ -2,7 +2,7 @@ import { ajax } from "./ajax.js";
 import api from "./TMDb-api.js";
 import { MoviePosterCard } from "../components/MoviePosterCard.js"
 
-export async function infiniteScroll(URL) {
+export async function infiniteScroll() {
      const d = document,
           w = window;
 
@@ -20,7 +20,7 @@ export async function infiniteScroll(URL) {
                     api.page++;
                     d.getElementById("results-spin-loader").style.display = "block";
                     await ajax({
-                    url: `${URL}&page=${api.page}`,
+                    url: `${api.infinite_url}&page=${api.page}`,
                     cbSuccess: async (data) => {
                          const movies = data.results,
                               $fragment = d.createDocumentFragment();

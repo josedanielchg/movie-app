@@ -75,7 +75,7 @@ export async function Router() {
                               slidesData: popularActionMovies,
                               sliderClass: 'browse-category',
                               changeSlidersButtonsData:  genresList,
-                              linkExploreAll:  "#/genre/14/Action",
+                              linkExploreAll:  "#/genre/28/Action",
                          });
 
                     $fragment.appendChild( await Header( popularMovies[0]) );
@@ -196,11 +196,13 @@ export async function Router() {
                          results: data.results,
                          page: data.page,
                          searchFormIsActive: false,
+                         totalResults: data.total_results,
                     });
                    $fragment.appendChild( $resultsSection );
                     $main.appendChild($fragment);
                     api.total_pages = data.total_pages;
-                    infiniteScroll(`${api.POPULAR}${api.withGenres}${genreId}`);
+                    api.infinite_url= `${api.POPULAR}${api.withGenres}${genreId}`
+                    infiniteScroll();
                }
           })
      }
@@ -242,12 +244,13 @@ export async function Router() {
                          results: data.results,
                          page: data.page,
                          searchFormIsActive: true,
+                         totalResults: data.total_results,
                     });
-                    console.log(data);
                    $fragment.appendChild( $resultsSection );
                     $main.appendChild($fragment);
                     api.total_pages = data.total_pages;
-                    infiniteScroll(`${api.SEARCH}${keyWord}`);
+                    api.infinite_url = `${api.SEARCH}${keyWord}`
+                    infiniteScroll();
                }
           })
      }
