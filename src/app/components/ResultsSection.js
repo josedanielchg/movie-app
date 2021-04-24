@@ -1,3 +1,4 @@
+import number_with_commas from "../helpers/number_with_commas.js"
 import { MoviePosterCard } from "./MoviePosterCard.js"
 import { SpinLoader } from "./SpinLoader.js"
 
@@ -10,8 +11,8 @@ export function ResultsSection(data) {
                keyWord, 
                searchFormIsActive,
                results, 
-               page,
-               classList
+               classList,
+               totalResults
           } = data;
 
      $section.classList.add("results");
@@ -30,6 +31,10 @@ export function ResultsSection(data) {
                ? ""
                : `<div class="results__head">
                     <h2 class="results__title">${title}</h2>
+                    ${!totalResults
+                         ? ""
+                         : `<h3>${number_with_commas(totalResults)} Results</h3>`
+                    }
                </div>`
           }
           <div class="results__items"></div>
@@ -55,14 +60,18 @@ export function ResultsSection(data) {
           }
 
           .results__head {
-               display: flex;
-               align-items: baseline;
                margin-bottom: 1.25rem;
           }
 
           .results__title {
                font-size: 1.125rem;
                letter-spacing: 0.4px;
+          }
+
+          .results__head h3 {
+               font-weight: 400;
+               font-size: 1rem;
+               color: #666c70;
           }
 
           .results__items {
