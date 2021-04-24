@@ -12,6 +12,9 @@ const NAME = "api.themoviedb",
      appendVideosImagesCast = "?append_to_response=videos,images,casts",
      withGenres = "&with_genres=";
 
+let page = 1,
+     total_pages = 1;
+
 
 export default  {
      NAME,
@@ -26,5 +29,7 @@ export default  {
      PERSON,
      appendVideosImages,
      appendVideosImagesCast,
-     withGenres
+     withGenres,
+     page,
+     total_pages,
 }

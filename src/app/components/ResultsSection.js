@@ -1,4 +1,5 @@
 import { MoviePosterCard } from "./MoviePosterCard.js"
+import { SpinLoader } from "./SpinLoader.js"
 
 export function ResultsSection(data) {
      const d = document,
@@ -32,9 +33,10 @@ export function ResultsSection(data) {
                </div>`
           }
           <div class="results__items"></div>
-          <div class="results__loader">
-          </div>
+          <div class="results__loader"></div>
      `)
+
+     $section.querySelector(".results__loader").insertAdjacentElement("beforeend", SpinLoader())
 
      results.forEach(movie =>
           $section.querySelector(".results__items").
@@ -68,6 +70,7 @@ export function ResultsSection(data) {
                flex-wrap: wrap;
                margin-right: -4px;
                margin-left: -4px;
+               margin-bottom: 1.25rem;
           }
 
           .results__items .card {

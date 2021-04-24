@@ -6,6 +6,7 @@ Swiper.use([Navigation, Pagination]);
 import { ajax } from "../helpers/ajax.js";
 import api from "../helpers/TMDb-api.js";
 import genresList from "../helpers/genresList";
+import { infiniteScroll } from "../helpers/infinite_scroll";
 
 //components
 import { Header } from "./Header";
@@ -20,6 +21,7 @@ import { PersonDetailsSection } from "./PersonDetailsSection.js";
 
 export async function Router() {
      window.scrollTo(0,0)
+     api.page = 1;
 
      const d = document,
           w = window,
@@ -197,6 +199,8 @@ export async function Router() {
                     });
                    $fragment.appendChild( $resultsSection );
                     $main.appendChild($fragment);
+                    api.total_pages = data.total_pages;
+                    infiniteScroll(`${api.POPULAR}${api.withGenres}${genreId}`);
                }
           })
      }
@@ -239,9 +243,11 @@ export async function Router() {
                          page: data.page,
                          searchFormIsActive: true,
                     });
-
+                    console.log(data);
                    $fragment.appendChild( $resultsSection );
                     $main.appendChild($fragment);
+                    api.total_pages = data.total_pages;
+                    infiniteScroll(`${api.SEARCH}${keyWord}`);
                }
           })
      }
