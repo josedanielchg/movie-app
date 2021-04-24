@@ -88,17 +88,24 @@ export function ChangeSliderButtons(conf) {
                          $slide.style['margin-right'] = margin_right;
                     });
 
-                    let $lastCard = SlidesComponent({
-                         lastCard: {
-                              title: "Explore More...",
-                              link: `#/genre/${e.target.dataset.id}/${genresList.find(genre => genre.id == e.target.dataset.id).name}`
-                         }
-                    })
+                    let genreName = genresList.find(genre=>genre.id==e.target.dataset.id).name,
+                         exploreMoreLink = `#/genre/${e.target.dataset.id}/${genreName}`,
+                         $lastCard = SlidesComponent({
+                              lastCard: {
+                                   title: "Explore More...",
+                                   link: exploreMoreLink
+                              }
+                         });
                     $fragment.appendChild($lastCard);
                     $lastCard.style['width'] = width;
                     $lastCard.style['margin-right'] = margin_right;
 
-                    d.querySelector(`.${sliderClass} .swiper-wrapper`).appendChild($fragment)
+                    e.target
+                         .closest(".slider-section")
+                         .querySelector(".slider-section__explore-link")
+                         .href = exploreMoreLink;
+
+                         d.querySelector(`.${sliderClass} .swiper-wrapper`).appendChild($fragment)
                     $backdrop.style.display = "none";
                }
           });
