@@ -18,6 +18,7 @@ import { MovieDetailsSection } from "./MovieDetailsSection.js";
 import { ResultsSection } from "./ResultsSection";
 import { PersonDescriptionSection } from "./PersonDescriptionSection.js";
 import { PersonDetailsSection } from "./PersonDetailsSection.js";
+import { PageNotFound } from "./PageNotFound";
 
 export async function Router() {
      window.scrollTo(0,0)
@@ -40,7 +41,8 @@ export async function Router() {
           genreViewRegEx = /#\/genre\/[0-9]+\/[A-Za-z0-9-]+/,
           searchViewRegEx = /#\/search\?q\=[a-z0-9-#!%]+/;
 
-     if (!hash || hash === "#/") {
+     // http://domainName.ext/# || http://domainName.ext/
+     if (!hash || hash === "#/" ) {
           $title.innerText = "Movie App"
           await ajax({
                url: [
@@ -119,8 +121,9 @@ export async function Router() {
                }
           });
      }
-
-     if(movieViewRegEx.test(hash)){
+     // http://domainName.ext/#/movie/movie-id/movie-name
+     // http://localhost:8080/#/movie/527774/raya-and-the-last-dragon
+     else if(movieViewRegEx.test(hash)){
           const movieId = hash.split("/")[2];
           await ajax({
                url: [
@@ -183,8 +186,9 @@ export async function Router() {
                }
           })
      }
-
-     if(genreViewRegEx.test(hash)){
+     // http://domainName.ext/#/genre/genre-id/genre-name
+     // http://localhost:8080/#/genre/12/Adventure
+     else if(genreViewRegEx.test(hash)){
           const genreId = hash.split("/")[2],
                genreName = genresList.find(genre => genre.id == genreId).name;
           $title.innerText = genreName + "  - Movies";
@@ -206,8 +210,9 @@ export async function Router() {
                }
           })
      }
-
-     if(personViewRegEx.test(hash)){
+     // http://domainName.ext/#/person/person-id/person-name
+     // http://localhost:8080/#/person/6944/octavia-spencer
+     else if(personViewRegEx.test(hash)){
           const personId = hash.split("/")[2];
           await ajax({
                url: [
@@ -231,8 +236,9 @@ export async function Router() {
                }
           })
      }
-
-     if(searchViewRegEx.test(hash)){
+     // http://domainName.ext/#/search?q=movie-title
+     // http://localhost:8080/#/search?q=pokemon
+     else if(searchViewRegEx.test(hash)){
           $title.innerText = "Search"
           const keyWord = hash.slice(hash.indexOf("?q=")+3, hash.length);
           await ajax({
@@ -253,6 +259,11 @@ export async function Router() {
                     infiniteScroll();
                }
           })
+     }
+     else {
+          $title.innerText = "This page could not be found"
+          $root.removeChild(d.querySelector("footer"))
+          $main.insertAdjacentElement("beforeend",PageNotFound())
      }
 
      d.querySelector(".loader-container").style.display = "none";
