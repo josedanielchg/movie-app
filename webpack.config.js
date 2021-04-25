@@ -42,7 +42,11 @@ module.exports = {
                },
                {
                     test: /\.(jpe?g|png|gif|svg|webp|ico)$/i,
-                    use: ["file-loader?name=assets/resources/[name].[ext]", "image-webpack-loader"],
+                    // use: ["file-loader?name=/assets/resources/[name].[ext]", "image-webpack-loader"],
+                    loader: "file-loader",
+                    options: {
+                         name: "/assets/resources/[name].[ext]",
+                    }
                }
           ],
      },
@@ -50,6 +54,7 @@ module.exports = {
           new HtmlWebpackPlugin({
                template: "./src/index.html",
                filename: "./index.html",
+               favicon: "./src/app/assets/resources/favicon.ico"
           }), 
           new MiniCssExtractPlugin({
               insert: 'title',
