@@ -42,11 +42,16 @@ export function ResultsSection(data) {
      `)
 
      $section.querySelector(".results__loader").insertAdjacentElement("beforeend", SpinLoader())
-
-     results.forEach(movie =>
-          $section.querySelector(".results__items").
-               insertAdjacentElement("beforeend", MoviePosterCard( {props: movie} ) )
-     );
+     
+     if(results.lenght > 0)
+          results.forEach(movie =>
+               $section.querySelector(".results__items").
+                    insertAdjacentElement("beforeend", MoviePosterCard( {props: movie} ) )
+          );
+     else
+          $section.querySelector(".results__items").insertAdjacentHTML("beforeend", `
+               <h4>No matches found. Try a different search...</h4>
+          `)
 
      $styles.insertAdjacentHTML("beforeend", `
           .results {
@@ -86,6 +91,14 @@ export function ResultsSection(data) {
                width: calc(100% / 3);
                padding: 0 4px;
                margin-bottom: 1.25rem;
+          }
+
+          .results__items {
+               margin-left: 0;
+               margin-right: 0;
+               font-size: 1.25rem;
+               font-weight: 400;
+               color: #666c70;
           }
 
           @media (min-width: 640px) {

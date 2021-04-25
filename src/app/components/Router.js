@@ -39,7 +39,7 @@ export async function Router() {
      let movieViewRegEx = /#\/movie\/[0-9]+\/[a-z0-9-]+/,
           personViewRegEx = /#\/person\/[0-9]+\/[a-z0-9-]+/,
           genreViewRegEx = /#\/genre\/[0-9]+\/[A-Za-z0-9-]+/,
-          searchViewRegEx = /#\/search\?q\=[a-z0-9-#!%]+/;
+          searchViewRegEx = /#\/search\?q\=[A-Za-z0-9-#!%]+/;
 
      // http://domainName.ext/# || http://domainName.ext/
      if (!hash || hash === "#/" ) {
