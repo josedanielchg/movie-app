@@ -1,4 +1,5 @@
 import TMDB_KEYS from "./TMDb-keys.js"
+import { PageNotFound } from "../components/PageNotFound.js"
 
 export async function ajax(props) {
 
@@ -26,8 +27,18 @@ async function oneRequest(props, options) {
           .then( (res) => (res.ok ? res.json() : Promise.reject(res) ) )
           .then( (json) => cbSuccess(json) )
           .catch( (err) => {
-               console.log("Error", err);
+               let title = err.status ? `Error ${err.status}` : "Error accessing to the API",
+                    message = err.statusTet || "An error has occurred";
+               const $title = document.querySelector("title"),
+                    $main = document.getElementById("main");
 
+               $title.innerText = "Error - Movie App"
+               $main.insertAdjacentElement("beforeend",PageNotFound({
+                    title,
+                    message,
+                    tryAgain: true
+               }))
+               console.log("Error", err);
           });
 }
 
@@ -41,6 +52,17 @@ async function multipleRequest(props, options) {
           .then( (responses) =>Promise.all(responses.map(res => res.json()) ) )
           .then( (data) => cbSuccess(data) )
           .catch( (err) => {
+               let title = err.status ? `Error ${err.status}` : "Error accessing to the API",
+                    message = err.statusTet || "An error has occurred"
+               const $title = document.querySelector("title"),
+                    $main = document.getElementById("main");
+
+               $title.innerText = "Error - Movie App"
+               $main.insertAdjacentElement("beforeend",PageNotFound({
+                    title,
+                    message,
+                    tryAgain: true
+               }))
                console.log("Error", err);
           });
 }

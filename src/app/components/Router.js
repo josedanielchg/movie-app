@@ -26,15 +26,15 @@ export async function Router() {
 
      const d = document,
           w = window,
-          $root = document.getElementById("root");
-
-     const $main = d.getElementById("main"),
+          $root = document.getElementById("root"),
+          $main = d.getElementById("main"),
           $fragment = d.createDocumentFragment(),
           $title = d.querySelector("title");
 
      let { hash } = location;
 
      $main.appendChild( SearchForm() );
+     $title.innerText = "Movie App";
 
      let movieViewRegEx = /#\/movie\/[0-9]+\/[a-z0-9-]+/,
           personViewRegEx = /#\/person\/[0-9]+\/[a-z0-9-]+/,
@@ -43,7 +43,6 @@ export async function Router() {
 
      // http://domainName.ext/# || http://domainName.ext/
      if (!hash || hash === "#/" ) {
-          $title.innerText = "Movie App"
           await ajax({
                url: [
                     api.TRENDING,
@@ -136,7 +135,7 @@ export async function Router() {
 
                     const $movieDetailsSection = MovieDetailsSection(currentMovie);
 
-                    $title.innerText = currentMovie.title + "- Movie";
+                    $title.innerText = currentMovie.title + " - Movie App";
                     $fragment.appendChild( await Header( currentMovie ) );
                     $fragment.appendChild($movieDetailsSection);
 
@@ -191,7 +190,7 @@ export async function Router() {
      else if(genreViewRegEx.test(hash)){
           const genreId = hash.split("/")[2],
                genreName = genresList.find(genre => genre.id == genreId).name;
-          $title.innerText = genreName + "  - Movies";
+          $title.innerText = genreName + "  - Movie App";
           await ajax({
                url: `${api.POPULAR}${api.withGenres}${genreId}`,
                cbSuccess: async (data) => {
@@ -225,7 +224,7 @@ export async function Router() {
                          movieCredits = data[1],
                          images = data[2];
                     
-                    $title.innerText = biography.name;
+                    $title.innerText = biography.name + " - Movie App";
 
                     const $personDescriptionSection = PersonDescriptionSection(biography),
                          $PersonDetailsSection = PersonDetailsSection({movieCredits, images});
@@ -239,7 +238,7 @@ export async function Router() {
      // http://domainName.ext/#/search?q=movie-title
      // http://localhost:8080/#/search?q=pokemon
      else if(searchViewRegEx.test(hash)){
-          $title.innerText = "Search"
+          $title.innerText = "Search - Movie App"
           const keyWord = hash.slice(hash.indexOf("?q=")+3, hash.length);
           await ajax({
                url: `${api.SEARCH}${keyWord}`,
@@ -261,9 +260,12 @@ export async function Router() {
           })
      }
      else {
-          $title.innerText = "This page could not be found"
-          $root.removeChild(d.querySelector("footer"))
-          $main.insertAdjacentElement("beforeend",PageNotFound())
+          $title.innerText = "This page could not be found - Movie App"
+          $main.insertAdjacentElement("beforeend",PageNotFound({
+               title: "This page could not be found",
+               message: "Looks like you've followed a broken link or entered a URL that doesn't exist on this site.",
+               backHome: true
+          }))
      }
 
      d.querySelector(".loader-container").style.display = "none";

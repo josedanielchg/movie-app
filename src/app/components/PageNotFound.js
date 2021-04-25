@@ -1,16 +1,32 @@
-export function PageNotFound() {
+export function PageNotFound(data) {
      const d = document,
           $notFound = document.createElement("div"),
-          $styles = document.getElementById("dynamic-styles")
+          $styles = document.getElementById("dynamic-styles"),
+          $root = document.getElementById("root"),
+          {
+               title,
+               message,
+               backHome,
+               tryAgain
+          } = data;
+     
+     $root.removeChild(d.querySelector("footer"))
 
      $notFound.classList.add("not-found");
 
      $notFound.insertAdjacentHTML("beforeend", `
           <div class="error">
-               <h2 class="title">This page could not be found</h2>
+               <h2 class="title">${title}</h2>
                <div class="message">
-                    <p>Looks like you've followed a broken link or entered a URL that doesn't exist on this site.</p>
-                    <p>Back to our <a href="/" class="nuxt-link-active">home page</a>.</p>
+                    <p>${message}</p>
+                    ${backHome
+                         ? `<p>Back to our <a href="/" class="nuxt-link-active">home page</a>.</p>`
+                         : "" 
+                    }
+                    ${tryAgain
+                         ? `<p><a href="${location.href}" class="nuxt-link-active">Try again</a>.</p>`
+                         : "" 
+                    }
                </div>
           </div>
      `)
@@ -60,6 +76,12 @@ export function PageNotFound() {
                }
           }
      `);
+
+     d.addEventListener("click", e => {
+          if(!e.target.matches(".error a")) return false;
+          e.preventDefault();
+          location.reload();
+     })
 
      return $notFound;
 }
