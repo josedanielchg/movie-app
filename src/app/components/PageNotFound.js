@@ -20,11 +20,11 @@ export function PageNotFound(data) {
                <div class="message">
                     <p>${message}</p>
                     ${backHome
-                         ? `<p>Back to our <a href="/" class="nuxt-link-active">home page</a>.</p>`
+                         ? `<p>Back to our <a href="${location.href}" class="back-home">home page</a>.</p>`
                          : "" 
                     }
                     ${tryAgain
-                         ? `<p><a href="${location.href}" class="nuxt-link-active">Try again</a>.</p>`
+                         ? `<p><a href="${location.href}" class="try-again">Try again</a>.</p>`
                          : "" 
                     }
                </div>
@@ -80,7 +80,12 @@ export function PageNotFound(data) {
      d.addEventListener("click", e => {
           if(!e.target.matches(".error a")) return false;
           e.preventDefault();
-          location.reload();
+
+          if(e.target.matches(".back-home"))
+               location.hash = "";
+
+          if(e.target.matches(".try-again"))
+               location.reload();
      })
 
      return $notFound;
