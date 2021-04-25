@@ -1,4 +1,7 @@
-import string_to_slug from "../helpers/string_to_slug.js"
+import string_to_slug from "../helpers/string_to_slug.js";
+import starFill from "../assets/resources/star-fill.png";
+import starFrame from "../assets/resources/star-frame.png";
+
 
 export function MoviePosterCard(data) {
      const d = document,
@@ -96,12 +99,12 @@ export function MoviePosterCard(data) {
           .movie-card .card__stars {
                width: 4.5rem;
                height: 0.75rem;
-               background-image: url("../assets/resources/star-frame.png");
+               background-image: url(${starFrame});
           }
 
           .movie-card .card__stars > div {
                height: 100%;
-               background-image: url("../assets/resources/star-fill.png");
+               background-image: url(${starFill});
           }
 
           .movie-card .card__rating {

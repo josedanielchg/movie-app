@@ -1,3 +1,6 @@
+import starFill from "../assets/resources/star-fill.png";
+import starFrame from "../assets/resources/star-frame.png";
+
 import { ajax } from "../helpers/ajax.js";
 import api from "../helpers/TMDb-api.js";
 import string_to_slug from "../helpers/string_to_slug.js"
@@ -140,14 +143,14 @@ export async function Header(props) {
                width: 6.4375rem;
                height: 1.0625rem;
                margin-right: 0.625rem;
-               background-image: url(/src/app/assets/resources/star-frame.png);
+               background-image: url(${starFrame});
                background-repeat: no-repeat;
                background-size: auto 100%;
           }
 
           .header__rating .starts div {
                height: 100%;
-               background-image: url(/src/app/assets/resources/star-fill.png);
+               background-image: url(${starFill});
                background-repeat: no-repeat;
                background-size: auto 100%;
           }
