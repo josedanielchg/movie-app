@@ -1,5 +1,5 @@
 .swiper-container {
-  padding: 0 2.44rem;
+  padding: 0 1.225rem;
 }
 .swiper-container {
   width: 100%;
@@ -56,4 +56,16 @@
   left: 0;
   z-index: 10;
   display: none;
+}
+
+@media (min-width: 768px) {
+  .swiper-container {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .swiper-container {
+    padding: 0 2.45rem;
+  }
 }

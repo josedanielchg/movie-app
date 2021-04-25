@@ -46,7 +46,7 @@ export function SliderSection(conf) {
                font-size: 1.5rem;
                display: inline-block;
                margin-bottom: 1rem;
-               margin-left: 2.45rem;
+               margin-left: 1.225rem;
                margin-right: 0.5rem;
           }
 
@@ -54,6 +54,18 @@ export function SliderSection(conf) {
                font-weight: 800;
                font-size: 0.75rem;
                color: #2196f3;
+          }
+
+          @media (min-width: 768px) {
+               .slider-section__title {
+                    margin-left: 2.5rem;
+               }
+          }
+
+          @media (min-width: 1024px) {
+               .slider-section__title {
+                    margin-left: 2.45rem;
+               }
           }
      `);
 
