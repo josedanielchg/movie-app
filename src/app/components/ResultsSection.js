@@ -42,8 +42,7 @@ export function ResultsSection(data) {
      `)
 
      $section.querySelector(".results__loader").insertAdjacentElement("beforeend", SpinLoader())
-     
-     if(results.lenght > 0)
+     if(results.length > 0)
           results.forEach(movie =>
                $section.querySelector(".results__items").
                     insertAdjacentElement("beforeend", MoviePosterCard( {props: movie} ) )
