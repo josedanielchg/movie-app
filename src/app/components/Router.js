@@ -229,9 +229,10 @@ export async function Router() {
                     const $personDescriptionSection = PersonDescriptionSection(biography),
                          $PersonDetailsSection = PersonDetailsSection({movieCredits, images});
 
-                   $fragment.appendChild( $personDescriptionSection );
-                   $fragment.appendChild( $PersonDetailsSection );
+                    $fragment.appendChild( $personDescriptionSection );
+                    $fragment.appendChild( $PersonDetailsSection );
                     $main.appendChild($fragment);
+                    api.total_pages = -1;
                }
           })
      }
