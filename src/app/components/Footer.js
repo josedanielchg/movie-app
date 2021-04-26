@@ -17,7 +17,7 @@ export function Footer() {
      $styles.insertAdjacentHTML('beforeend', `
           .footer {
                background-color: #141414;
-               padding: 2.45rem;
+               padding: 1.5rem 1.225rem 4.3rem 1.225rem;
                color: #80868b;
                font-size: 0.875rem;
                margin-top: 3rem;
@@ -26,6 +26,12 @@ export function Footer() {
           .footer p {
                margin: 3px 0;
                line-height: 1.6;
+          }
+
+          @media (min-width: 1024px) {
+               .footer {
+                    padding: 2.45rem;
+               }
           }
      `);
 
