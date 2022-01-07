@@ -1,7 +1,7 @@
 import { ModalImage } from "./ModalImage";
 
 export function PhotosSection(data) {
-     const d = document,
+     let d = document,
           $photosSection = d.createElement("div"),
           $styles = d.getElementById("dynamic-styles"),
           {images, classList} = data,
@@ -19,6 +19,8 @@ export function PhotosSection(data) {
           photos = images.photos ? images.photos : null;
 
      $photosSection.classList.add(...classList);
+
+     imagesType = imagesType.filter(el => (el=="backdrops" || el=="posters" || el=="photos"))
 
      imagesType.forEach(section => {
           let sectionName = section.charAt(0).toUpperCase() + section.slice(1);
