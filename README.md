@@ -26,4 +26,4 @@ On this website you can:
 # How to use
 
 To see the page use this link:
-https://josedanielchg.github.io/Movie-app/
+https://josedanielchg.github.io/movie-app/
